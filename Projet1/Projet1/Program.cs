@@ -4,7 +4,11 @@ using System.Text;
 
 namespace Projet1
 {
-    class launcher
+    class Program
     {
+        static void Main(string[] args)
+        {
+        }
+
     }
 }
