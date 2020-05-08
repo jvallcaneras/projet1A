@@ -16,7 +16,7 @@ namespace Projet1
 
         //Constructeurs
 
-        //GetSet
+        //Propritétés
         public String get_nomProjet()
         {
             return _nomProjet;
@@ -46,5 +46,27 @@ namespace Projet1
         {
             _nomProjet = newNomProjet;
         }
+        public void setdureeSemaine(int newDureeSemaine)
+        {
+            _dureeSemaine = newDureeSemaine;
+        }
+        public void setnbIntervenant(int newNbIntervenant)
+        {
+            _nbIntervenant = newNbIntervenant;
+        }
+        public void setnbRole(int newNbRole)
+        {
+            _nbRole = newNbRole;
+        }
+        public void setnbLivrable(int newNbLivrable)
+        {
+            _nbLivrable = newNbLivrable;
+        }
+        public void setnbMatiere(int newNbMatiere)
+        {
+            _nbMatiere = newNbMatiere;
+        }
+
+        //Methodes
     }
 }
