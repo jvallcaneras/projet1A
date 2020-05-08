@@ -6,5 +6,7 @@ namespace Projet1
 {
     class Promotion
     {
+        //Attributs de la classe
+        private int _annee;
     }
 }

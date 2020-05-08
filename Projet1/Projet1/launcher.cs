@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Projet1
 {
-    class Projet1
+    class launcher
     {
     }
 }

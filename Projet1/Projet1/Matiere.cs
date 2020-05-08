@@ -6,5 +6,8 @@ namespace Projet1
 {
     class Matiere
     {
+        //Attributs de la classe
+        private string _nomMatiere;
+        private string _codeUE;
     }
 }

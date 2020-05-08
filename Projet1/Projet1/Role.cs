@@ -6,5 +6,7 @@ namespace Projet1
 {
     class Role
     {
+        //Attributs de la classe
+        private string _libelle;
     }
 }

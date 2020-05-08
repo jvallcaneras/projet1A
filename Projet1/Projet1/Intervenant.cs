@@ -4,8 +4,12 @@ using System.Text;
 
 namespace Projet1
 {
-    class Intervenant
+    class Intervenant             
     {
-     
+        //Attributs de la classe
+        private String _nom;
+        private String _prenom;
+        private String _type;
+
     }
 }
