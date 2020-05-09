@@ -10,7 +10,7 @@ namespace Projet1
         public static int AfficherMenuPrincipal()
         {
             ConsoleKeyInfo keyPressed; // Nous permettra de récupérer l'entrée du clavier afin de bouger dans le menu
-            int positionCurseur = 1; // On initialise le curseur à 1 : Position sur "Nouvelle partie"
+            int positionCurseur = 1; // On initialise le curseur à 1 : Position sur "Créer un projet"
             do // On met à jour l'affichage en fonction des touches pressées (haut/bas/entrée)
             {
                 Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
@@ -69,7 +69,7 @@ namespace Projet1
         public static int AfficherMenuProjets()
         {
             ConsoleKeyInfo keyPressed; // Nous permettra de récupérer l'entrée du clavier afin de bouger dans le menu
-            int positionCurseur = 1; // On initialise le curseur à 1 : Position sur "Nouvelle partie"
+            int positionCurseur = 1; // On initialise le curseur à 1 : Position sur "Visualiser l'ensemble des projets"
             do // On met à jour l'affichage en fonction des touches pressées (haut/bas/entrée)
             {
                 Console.WriteLine("\n\t \t \t \t\t \t \t \t \tGestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
