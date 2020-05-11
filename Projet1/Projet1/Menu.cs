@@ -31,7 +31,7 @@ namespace Projet1
                 }
                 else if (positionCurseur == 2)
                 {
-                    Console.WriteLine("\t \t \t \t \t \t \t \t \t \t \t     Nouvelle partie");
+                    Console.WriteLine("\t \t \t \t \t \t \t \t \t \t \t     Créer un projet");
 
                     Console.Write(" \t \t \t \t \t \t \t \t \t \t \t    ");
                     Console.ForegroundColor = ConsoleColor.Black;

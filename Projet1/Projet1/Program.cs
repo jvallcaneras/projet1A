@@ -14,6 +14,8 @@ namespace Projet1
             // Si 2 - Visualisation des projets
             if (choix == 1)
             {
+
+                Projet.CreationProjet();
                 // Gérer la création d'un projet avec des questions et des entrées utilisateur
                 // Ne pas oublier de contrôler les entrées utilisateur (ex : Ne pas mettre une lettre sur le nombre de collaborateurs etc...)
             }
