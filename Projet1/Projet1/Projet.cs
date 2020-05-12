@@ -19,7 +19,7 @@ namespace Projet1
         private List<string> _intervenants;
 
         //Constructeurs
-        public Projet(string nomProjet, int typeProjet, int dureeSemaine, int nbIntervenant, int nbLivrables, int nbMatiere, List<string> livrables, List<string> matières)
+        public Projet(string nomProjet, int typeProjet, int dureeSemaine, int nbIntervenant, int nbLivrables, int nbMatiere, List<string> livrables, List<string> matières, List<string> intervenants)
 
         {
             this.NomProjet = nomProjet;
@@ -30,6 +30,7 @@ namespace Projet1
             this.NbMatiere = nbMatiere;
             this.Livrables = livrables;
             this.Matieres = Matieres;
+            this.Intervenants = intervenants;
         }
 
 
@@ -133,8 +134,8 @@ namespace Projet1
                     listeLivrables.Add(livrable);
             }
 
-            // Continuer les questions en stockant les réponses
-            // Créer l'objet projet 
+            Projet projet = new Projet(nomProjet, typeProjet, dureeSemaine:, nbIntervenant, nbLivrables, nbMatiere, listeLivrables, listeMatieres, listeIntervenants)
+            
             // Le stocker en XML
         }
     }
