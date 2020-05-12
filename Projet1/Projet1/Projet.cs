@@ -16,12 +16,7 @@ namespace Projet1
         private int _nbMatiere;
         private List<string> _matieres;
         private List<string> _livrables;
-
-       
-
-
-   
-
+        private List<string> _intervenants;
 
         //Constructeurs
         public Projet(string nomProjet, int typeProjet, int dureeSemaine, int nbIntervenant, int nbLivrables, int nbMatiere, List<string> livrables, List<string> matières)
@@ -49,6 +44,7 @@ namespace Projet1
         public int NbMatiere { get => _nbMatiere; set => _nbMatiere = value; }
         public List<string> Matieres { get => _matieres; set => _matieres = value; }
         public List<string> Livrables { get => _livrables; set => _livrables = value; }
+        public List<string> Intervenants { get => _intervenants; set => _intervenants = value; }
 
 
         //Methodes
@@ -67,14 +63,7 @@ namespace Projet1
             Console.WriteLine("Quel type de projet souhaitez-vous créer ? \n 1 pour projet transdisciplinaire \n 2 pour projet transpromotion" +
                 "\n 3 pour projet de fin d'études \n 4 pour projet d'introduction à la programmation \n 5 pour autre");
             int typeProjet = Convert.ToInt32(Console.ReadLine());
-
-            Console.Clear();
-            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
-            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
-            Console.WriteLine("Combien de matières concerne-t-il ?");
-            int nbMatiere = Convert.ToInt32(Console.ReadLine());
-
-
+                       
             Console.Clear();
             Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
             Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
@@ -90,8 +79,60 @@ namespace Projet1
             Console.Clear();
             Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
             Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
-            Console.WriteLine("Combien de livrables sont attendus ?");
-            int nbLivrable = Convert.ToInt32(Console.ReadLine());
+            int cpt = 0;
+            string intervenant = "";
+            List<string> listeIntervenants = new List<string>();
+            while(cpt<nbIntervenant || intervenant != "quitter" || intervenant != "Quitter" || intervenant != "QUITTER")
+            {
+                cpt++;
+                Console.WriteLine("Veuillez indiquer le nom d'un acteur (etudiants et encadrants), si ceux-ci ont tous été renseignés, entrez \"quitter\"");
+                intervenant = Console.ReadLine();
+                if (intervenant != "quitter" || intervenant != "QUITTER" || intervenant != "Quitter")
+                    listeIntervenants.Add(intervenant);
+            }
+
+            Console.Clear();
+            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
+            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
+            Console.WriteLine("Combien de matières concerne-t-il ?");
+            int nbMatiere = Convert.ToInt32(Console.ReadLine());
+
+            Console.Clear();
+            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
+            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
+            cpt = 0;
+            string matiere = "";
+            List<string> listeMatieres = new List<string>();
+            while (cpt < nbMatiere || matiere != "quitter" || matiere != "Quitter" || matiere != "QUITTER")
+            {
+                cpt++;
+                Console.WriteLine("Veuillez indiquer le nom d'une matière impliquée dans ce projet, si celles-ci ont toutes été renseignées, entrez \"quitter\"");
+                matiere = Console.ReadLine();
+                if (matiere != "quitter" || matiere != "QUITTER" || matiere != "Quitter")
+                    listeMatieres.Add(matiere);
+            }
+
+            Console.Clear();
+            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
+            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
+            Console.WriteLine("Combien de livrables concerne-t-il ?");
+            int nbLivrables = Convert.ToInt32(Console.ReadLine());
+
+            Console.Clear();
+            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
+            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
+            cpt = 0;
+            string livrable = "";
+            List<string> listeLivrables = new List<string>();
+            while (cpt < nbLivrables || livrable != "quitter" || livrable != "Quitter" || livrable != "QUITTER")
+            {
+                cpt++;
+                Console.WriteLine("Veuillez indiquer le nom d'un livrable pour ce projet, si ceux-ci ont tous été renseignés, entrez \"quitter\"");
+                livrable = Console.ReadLine();
+                if (livrable != "quitter" || livrable != "QUITTER" || livrable != "Quitter")
+                    listeLivrables.Add(livrable);
+            }
+
             // Continuer les questions en stockant les réponses
             // Créer l'objet projet 
             // Le stocker en XML
