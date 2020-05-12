@@ -9,7 +9,8 @@ namespace Projet1
         //Attributs de la classe
         private String _nom;
         private String _prenom;
-        private String _type;
+        private String _type; //1-etudiant, 2-prof, 3-intervnenant exte
+
 
     }
 }
