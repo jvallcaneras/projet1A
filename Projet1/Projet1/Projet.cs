@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace Projet1
 {
-    class Projet
+    public class Projet
     {
         //Attributs de la classe
         private string _nomProjet;
@@ -35,6 +35,8 @@ namespace Projet1
             this.Matieres = Matieres;
             this.Intervenants = intervenants;
         }
+
+        public Projet() { }
 
 
         //Propritétés
@@ -141,18 +143,13 @@ namespace Projet1
 
             // Le stocker en XML
 
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(Projet));
-            var subReq = projet;
-            var xml = "";
-
-            using (var sww = new StringWriter())
+            XmlSerializer xs = new XmlSerializer(typeof(Projet));
+            using (StreamWriter wr = new StreamWriter("projet.xml"))
             {
-                using (XmlWriter writer = XmlWriter.Create(sww))
-                {
-                    xsSubmit.Serialize(writer, subReq);
-                    xml = sww.ToString(); // Your XML
-                }
+                xs.Serialize(wr, projet);
             }
+            // Gérer les dossiers et comment on stock le tout
         }
+
     }
 }
