@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Projet1
 {
@@ -83,12 +86,12 @@ namespace Projet1
             int cpt = 0;
             string intervenant = "";
             List<string> listeIntervenants = new List<string>();
-            while(cpt<nbIntervenant || intervenant != "quitter" || intervenant != "Quitter" || intervenant != "QUITTER")
+            while(cpt<nbIntervenant && intervenant != "quitter" && intervenant != "Quitter" && intervenant != "QUITTER")
             {
                 cpt++;
                 Console.WriteLine("Veuillez indiquer le nom d'un acteur (etudiants et encadrants), si ceux-ci ont tous été renseignés, entrez \"quitter\"");
                 intervenant = Console.ReadLine();
-                if (intervenant != "quitter" || intervenant != "QUITTER" || intervenant != "Quitter")
+                if (intervenant != "quitter" && intervenant != "QUITTER" && intervenant != "Quitter")
                     listeIntervenants.Add(intervenant);
             }
 
@@ -104,12 +107,12 @@ namespace Projet1
             cpt = 0;
             string matiere = "";
             List<string> listeMatieres = new List<string>();
-            while (cpt < nbMatiere || matiere != "quitter" || matiere != "Quitter" || matiere != "QUITTER")
+            while (cpt < nbMatiere && matiere != "quitter" && matiere != "Quitter" && matiere != "QUITTER")
             {
                 cpt++;
                 Console.WriteLine("Veuillez indiquer le nom d'une matière impliquée dans ce projet, si celles-ci ont toutes été renseignées, entrez \"quitter\"");
                 matiere = Console.ReadLine();
-                if (matiere != "quitter" || matiere != "QUITTER" || matiere != "Quitter")
+                if (matiere != "quitter" && matiere != "QUITTER" && matiere != "Quitter")
                     listeMatieres.Add(matiere);
             }
 
@@ -125,18 +128,31 @@ namespace Projet1
             cpt = 0;
             string livrable = "";
             List<string> listeLivrables = new List<string>();
-            while (cpt < nbLivrables || livrable != "quitter" || livrable != "Quitter" || livrable != "QUITTER")
+            while (cpt < nbLivrables && livrable != "quitter" && livrable != "Quitter" && livrable != "QUITTER")
             {
                 cpt++;
                 Console.WriteLine("Veuillez indiquer le nom d'un livrable pour ce projet, si ceux-ci ont tous été renseignés, entrez \"quitter\"");
                 livrable = Console.ReadLine();
-                if (livrable != "quitter" || livrable != "QUITTER" || livrable != "Quitter")
+                if (livrable != "quitter" && livrable != "QUITTER" && livrable != "Quitter")
                     listeLivrables.Add(livrable);
             }
 
-            Projet projet = new Projet(nomProjet, typeProjet, dureeSemaine:, nbIntervenant, nbLivrables, nbMatiere, listeLivrables, listeMatieres, listeIntervenants)
-            
+            Projet projet = new Projet(nomProjet, typeProjet, nbSemaines, nbIntervenant, nbLivrables, nbMatiere, listeLivrables, listeMatieres, listeIntervenants);
+
             // Le stocker en XML
+
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(Projet));
+            var subReq = projet;
+            var xml = "";
+
+            using (var sww = new StringWriter())
+            {
+                using (XmlWriter writer = XmlWriter.Create(sww))
+                {
+                    xsSubmit.Serialize(writer, subReq);
+                    xml = sww.ToString(); // Your XML
+                }
+            }
         }
     }
 }
