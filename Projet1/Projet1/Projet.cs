@@ -7,16 +7,19 @@ namespace Projet1
     class Projet
     {
         //Attributs de la classe
-        private String _nomProjet;
+        private string _nomProjet;
         private int _typeProjet; // 1 - Transdi / 2 - transpromo / 3 - PFE / 4 - Intro prog / 5 - autre (à étoffer)
         private int _dureeSemaine;
         private int _nbIntervenant;
         // private int _nbRole;  // --> Affecter le rôle en fonction du nb d'intervenant ?
         private int _nbLivrable;
         private int _nbMatiere;
+        private List<string> _matieres;
+        private List<string> _livrables;
 
-        //Constructeurs
+       
 
+<<<<<<< HEAD
         //Propritétés
         public String get_nomProjet()
         {
@@ -39,10 +42,22 @@ namespace Projet1
             return _nbLivrable;
         }
         public int get_nbMatiere()
+=======
+        //Constructeurs
+        public Projet(string nomProjet, int typeProjet, int dureeSemaine, int nbIntervenant, int nbLivrables, int nbMatiere, List<string> livrables, List<string> matières)
+>>>>>>> 32d945d010b12f5e6363fefbacc0f760e469fbf6
         {
-            return _nbMatiere;
+            this.NomProjet = nomProjet;
+            this.TypeProjet = typeProjet;
+            this.DureeSemaine = dureeSemaine;
+            this.NbIntervenant = nbIntervenant;
+            this.NbLivrable = nbLivrables;
+            this.NbMatiere = nbMatiere;
+            this.Livrables = livrables;
+            this.Matieres = Matieres;
         }
 
+<<<<<<< HEAD
         public void setnomProjet(string newNomProjet)
         {
             _nomProjet = newNomProjet;
@@ -67,6 +82,21 @@ namespace Projet1
         {
             _nbMatiere = newNbMatiere;
         }
+=======
+        //Propritétés
+
+        public int TypeProjet { get => _typeProjet; set => _typeProjet = value; }
+        public string NomProjet { get => _nomProjet; set => _nomProjet = value; }
+        public int DureeSemaine { get => _dureeSemaine; set => _dureeSemaine = value; }
+        public int NbIntervenant { get => _nbIntervenant; set => _nbIntervenant = value; }
+        public int NbRole { get => _nbRole; set => _nbRole = value; }
+        public int NbLivrable { get => _nbLivrable; set => _nbLivrable = value; }
+        public int NbMatiere { get => _nbMatiere; set => _nbMatiere = value; }
+        public List<string> Matieres { get => _matieres; set => _matieres = value; }
+        public List<string> Livrables { get => _livrables; set => _livrables = value; }
+
+
+>>>>>>> 32d945d010b12f5e6363fefbacc0f760e469fbf6
 
         //Methodes
 
