@@ -8,8 +8,13 @@ namespace Projet1
     {
         //Attributs
         private int _anneeEntree;
-        private bool _redoublant1A;
-        private bool _redoublant2A;
-        private bool _redoublant3A;
+
+        //Acsesseurs
+        public int AnneeEntree { get => _anneeEntree; set => _anneeEntree = value; }
+
+        public Eleve (int anneeEntree)
+        {
+            this.AnneeEntree = anneeEntree;
+        }
     }
 }
