@@ -107,23 +107,10 @@ namespace Projet1
             Console.Clear();
             Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
             Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
-            Console.WriteLine("Combien de livrables concerne-t-il ?");
+            Console.WriteLine("Combien de livrables sont attendus ?");
             int nbLivrables = Convert.ToInt32(Console.ReadLine());
-
-            Console.Clear();
-            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
-            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
-            cpt = 0;
-            string livrable = "";
-            List<string> listeLivrables = new List<string>();
-            while (cpt < nbLivrables && livrable != "quitter" && livrable != "Quitter" && livrable != "QUITTER")
-            {
-                cpt++;
-                Console.WriteLine("Veuillez indiquer le nom d'un livrable pour ce projet, si ceux-ci ont tous été renseignés, entrez \"quitter\"");
-                livrable = Console.ReadLine();
-                if (livrable != "quitter" && livrable != "QUITTER" && livrable != "Quitter")
-                    listeLivrables.Add(livrable);
-            }
+            Livrable.CreationLivrable(nbLivrables);
+ 
 
             Projet projet = new Projet(nomProjet, typeProjet, nbSemaines, nbIntervenant, nbLivrables, nbMatiere, listeLivrables, listeMatieres, listeIntervenants);
 

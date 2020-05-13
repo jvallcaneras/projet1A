@@ -1,47 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Projet1
 {
     class Livrable
     {
         //Attributs de la classe
-        private string _type;
-        private String _dateRendu;
+        private int reference;
+        private string _dateRendu;
 
-        //Constructeur 
-        public Livrable(string type, string dateRendu)
+        public string dateRendu { get => _dateRendu; set => _dateRendu = value; }
+        public int Ref { get => reference; set => reference = value; }
+
+        //Constructeur
+        public Livrable(string date, int reference)
         {
-            _type = type;
-            _dateRendu = dateRendu;
-
+            this.dateRendu = date;
+            this.Ref = reference;
         }
 
         //Méthodes
-        public void CreationLivrable(int nbLivrable)
+        public static void CreationLivrable(int nbLivrable)
         {
-            for (int i = 0; i <= nbLivrable; i++)
-                Console.WriteLine("Choisissez un type pour le livrable numero " + i);
-            int caseSwitch = int.Parse(Console.ReadLine());
-            switch (caseSwitch)
+
+            Console.Clear();
+            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
+            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Livrable>)); // Initialisation de l'outils de serialisation
+            List<Livrable> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
+            using (FileStream stream = File.OpenRead("livrables.xml"))
             {
-                case 1:
-                    _type = "Rapport";
-                    break;
-                case 2:
-                    _type = "Soutenance";
-                    break;
-
-                case 3:
-                    _type = Console.ReadLine();
-                    break;
-
-
-
+                dezerializedList = (List<Livrable>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
+            }
+            foreach (Livrable l in dezerializedList)// Pour chaque matière récupérée dans la liste desérialisée
+            {
+                Console.WriteLine(l.Ref + "pour" + l.TypeLivrable); // On affiche les attributs de la matière
+            }
+            Console.WriteLine("Indiquez les livrables attendus ? (Choisissez le chiffre associé au type de livrable. Tapez 0 si le livrable n'est pas dans la liste");
+            int cpt = 0;
+            List<Livrable> listeLivrables = new List<Livrable>();
+            while (cpt < nbLivrable)
+            {
+                cpt++;
+                int entreeUtilisateur = Convert.ToInt32(Console.ReadLine());
+                if (entreeUtilisateur == 0)
+                {
+                    Console.WriteLine("Veuillez saisir le nom de la matière.");
+                    Livrable liv = new Livrable(Console.ReadLine(), dezerializedList.Count + 1); // On créé le nouveau livrable
+                    dezerializedList.Add(liv);
+                    listeLivrables.Add(liv);
+                    XmlSerializer xs1 = new XmlSerializer(typeof(List<Livrable>));
+                    using (StreamWriter wr = new StreamWriter("livrables.xml"))
+                    {
+                        xs1.Serialize(wr, dezerializedList);// On réécrie le fichier de livrables en ajoutant la nouvelle 
+                    }
+                }
+                else
+                {
+                    foreach (Livrable l in dezerializedList)
+                    {
+                        if (entreeUtilisateur == l.Ref)
+                            listeLivrables.Add(l); // Si l'utilisateur entre un nombre, on associe ce nombre à la matière associée en XML et on ajoute cette matière à notre liste
+                    } // Il reste à gérer le cas où le nombre n'existe pas en bdd (Avec un while) pour lui demander de rééssayer sa saisie
+                }
             }
 
 
+
         }
+
+
     }
+}
 }

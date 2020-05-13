@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace Projet1
 {
@@ -62,7 +65,7 @@ namespace Projet1
                             listeMatieres.Add(m); // Si l'utilisateur entre un nombre, on associe ce nombre à la matière associée en XML et on ajoute cette matière à notre liste
                     } // Il reste à gérer le cas où le nombre n'existe pas en bdd (Avec un while) pour lui demander de rééssayer sa saisie
                 }
-            }
+            } 
         }
     }
 }
