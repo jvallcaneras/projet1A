@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\antho\\Desktop\\projet1A\\Projet1\\Projet1\\Projet1.csproj": {}
+    "C:\\Users\\Julie\\Desktop\\galere.exe2\\projet1A\\Projet1\\Projet1\\Projet1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\antho\\Desktop\\projet1A\\Projet1\\Projet1\\Projet1.csproj": {
+    "C:\\Users\\Julie\\Desktop\\galere.exe2\\projet1A\\Projet1\\Projet1\\Projet1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\antho\\Desktop\\projet1A\\Projet1\\Projet1\\Projet1.csproj",
+        "projectUniqueName": "C:\\Users\\Julie\\Desktop\\galere.exe2\\projet1A\\Projet1\\Projet1\\Projet1.csproj",
         "projectName": "Projet1",
-        "projectPath": "C:\\Users\\antho\\Desktop\\projet1A\\Projet1\\Projet1\\Projet1.csproj",
-        "packagesPath": "C:\\Users\\antho\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\antho\\Desktop\\projet1A\\Projet1\\Projet1\\obj\\",
+        "projectPath": "C:\\Users\\Julie\\Desktop\\galere.exe2\\projet1A\\Projet1\\Projet1\\Projet1.csproj",
+        "packagesPath": "C:\\Users\\Julie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Julie\\Desktop\\galere.exe2\\projet1A\\Projet1\\Projet1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\antho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Julie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -52,7 +52,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
