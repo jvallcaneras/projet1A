@@ -35,3 +35,14 @@ C:\Users\Julie\Desktop\galere.exe\projet1A\Projet1\Projet1\obj\Debug\netcoreapp3
 C:\Users\Julie\Desktop\galere.exe\projet1A\Projet1\Projet1\obj\Debug\netcoreapp3.1\Projet1.dll
 C:\Users\Julie\Desktop\galere.exe\projet1A\Projet1\Projet1\obj\Debug\netcoreapp3.1\Projet1.pdb
 C:\Users\Julie\Desktop\galere.exe\projet1A\Projet1\Projet1\obj\Debug\netcoreapp3.1\Projet1.genruntimeconfig.cache
+C:\Users\antho\Desktop\Nouveau dossier\projet1A\Projet1\Projet1\obj\Debug\netcoreapp3.1\Projet1.csprojAssemblyReference.cache
+C:\Users\antho\Desktop\Nouveau dossier\projet1A\Projet1\Projet1\obj\Debug\netcoreapp3.1\Projet1.AssemblyInfoInputs.cache
+C:\Users\antho\Desktop\Nouveau dossier\projet1A\Projet1\Projet1\obj\Debug\netcoreapp3.1\Projet1.AssemblyInfo.cs
+C:\Users\antho\Desktop\Nouveau dossier\projet1A\Projet1\Projet1\obj\Debug\netcoreapp3.1\Projet1.dll
+C:\Users\antho\Desktop\Nouveau dossier\projet1A\Projet1\Projet1\obj\Debug\netcoreapp3.1\Projet1.pdb
+C:\Users\antho\Desktop\Nouveau dossier\projet1A\Projet1\Projet1\bin\Debug\netcoreapp3.1\Projet1.exe
+C:\Users\antho\Desktop\Nouveau dossier\projet1A\Projet1\Projet1\bin\Debug\netcoreapp3.1\Projet1.deps.json
+C:\Users\antho\Desktop\Nouveau dossier\projet1A\Projet1\Projet1\bin\Debug\netcoreapp3.1\Projet1.runtimeconfig.json
+C:\Users\antho\Desktop\Nouveau dossier\projet1A\Projet1\Projet1\bin\Debug\netcoreapp3.1\Projet1.runtimeconfig.dev.json
+C:\Users\antho\Desktop\Nouveau dossier\projet1A\Projet1\Projet1\bin\Debug\netcoreapp3.1\Projet1.dll
+C:\Users\antho\Desktop\Nouveau dossier\projet1A\Projet1\Projet1\bin\Debug\netcoreapp3.1\Projet1.pdb
