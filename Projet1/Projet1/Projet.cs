@@ -81,21 +81,8 @@ namespace Projet1
             Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
             Console.WriteLine("Combien y a-t-il d'acteurs ? (etudiants et encadrants)");
             int nbIntervenant = Convert.ToInt32(Console.ReadLine());
+            List<Matiere> listeMatieres = new List<Matiere>();
 
-            Console.Clear();
-            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
-            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
-            int cpt = 0;
-            string intervenant = "";
-            List<string> listeIntervenants = new List<string>();
-            while(cpt<nbIntervenant && intervenant != "quitter" && intervenant != "Quitter" && intervenant != "QUITTER")
-            {
-                cpt++;
-                Console.WriteLine("Veuillez indiquer le nom d'un acteur (etudiants et encadrants), si ceux-ci ont tous été renseignés, entrez \"quitter\"");
-                intervenant = Console.ReadLine();
-                if (intervenant != "quitter" && intervenant != "QUITTER" && intervenant != "Quitter")
-                    listeIntervenants.Add(intervenant);
-            }
 
             Console.Clear();
             Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
@@ -110,18 +97,19 @@ namespace Projet1
             Console.WriteLine("Combien de livrables sont attendus ?");
             int nbLivrables = Convert.ToInt32(Console.ReadLine());
             Livrable.CreationLivrable(nbLivrables);
- 
 
-            Projet projet = new Projet(nomProjet, typeProjet, nbSemaines, nbIntervenant, nbLivrables, nbMatiere, listeLivrables, listeMatieres, listeIntervenants);
+
+
+           //Projet projet = new Projet(nomProjet, typeProjet, nbSemaines, nbIntervenant, nbLivrables, nbMatiere, listeLivrables, listeMatieres, listeIntervenants);
 
             // Le stocker en XML
 
-            XmlSerializer xs = new XmlSerializer(typeof(Projet));
+            /*XmlSerializer xs = new XmlSerializer(typeof(Projet));
             using (StreamWriter wr = new StreamWriter("projet.xml"))
             {
                 xs.Serialize(wr, projet);
             }
-            // Gérer les dossiers et comment on stock le tout
+            // Gérer les dossiers et comment on stock le tout*/
         }
 
     }

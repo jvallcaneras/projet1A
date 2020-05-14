@@ -10,25 +10,20 @@ namespace Projet1
     class Intervenant
     {
         //Attributs de la classe
-        private string _nom;
-        private string _prenom;
         private string _type;
-        private int _reference; //1-etudiant, 2-prof, 3-intervnenant exte
+        private int _reference; //1-etudiant, 2-prof, 3-intervnenant ext
 
-        //
-        public string Nom { get => _nom; set => _nom = value; }
-        public string Prenom { get => _prenom; set => _prenom = value; }
+        //Accesseurs
         public string Type { get => _type; set => _type = value; }
         public int Reference { get => _reference; set => _reference = value; }
 
         //Constructeur
-        public Intervenant(string nom, string prenom, string type, int reference)
+        public Intervenant(string type, int reference)
         {
-            this.Nom = nom;
-            this.Prenom = prenom;
             this.Type = type;
             this.Reference = reference;
         }
+
 
         //Methodes
         public static void CreationIntervenant(int nbIntervenant)
@@ -54,23 +49,22 @@ namespace Projet1
 
             while (cpt < nbIntervenant)
             {
-                Console.WriteLine("Indiquez le nom de l'intervenant");
-                string nom = Console.ReadLine();
-                Console.WriteLine("Indiquez le prenom de l'intervenant");
-                string prenom = Console.ReadLine();
-                Console.WriteLine("Indiquez la catégorie de l'intervenant");
                 cpt++;
+                Console.WriteLine("Indiquez la catégorie de l'intervenant n° " + cpt);
                 int entreeUtilisateur = Convert.ToInt32(Console.ReadLine());
                 switch (entreeUtilisateur)
                 {
                     case 1:
-                        //Appeler fonction création étu;
+                        Eleve ele = Eleve.CreerEtudiant();
+                        listeIntervenant.Add(ele);
                         break;
                     case 2:
-                        //Appeler fonction création prof;
+                        Professeur prof = Professeur.CreerProfesseur();
+                        listeIntervenant.Add(prof);
                         break;
                     case 3:
-                        //Appeler fonction création exte;
+                        Exte exte = Exte.CreerExte();
+                        listeIntervenant.Add(exte);
                         break;
                 }
 
