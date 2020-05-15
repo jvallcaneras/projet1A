@@ -4,10 +4,11 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Projet1
 {
-    class Livrable
+    public class Livrable
     {
         //Attributs de la classe
         private int reference;
@@ -26,7 +27,7 @@ namespace Projet1
         }
 
         //Méthodes
-        public static void CreationLivrable(int nbLivrable)
+        public static List<Livrable> CreationLivrable(int nbLivrable)
         {
 
             Console.Clear();
@@ -67,14 +68,15 @@ namespace Projet1
                 else
                 {
                     foreach (Livrable l in dezerializedList)
-                    { 
+                    {
                         if (entreeUtilisateur == l.Ref)
-                        Console.WriteLine("Veuillez saisir la date de rendu.");
+                            Console.WriteLine("Veuillez saisir la date de rendu.");
                         l.dateRendu = Console.ReadLine();
                         listeLivrables.Add(l); // Si l'utilisateur entre un nombre, on associe ce nombre à la matière associée en XML et on ajoute cette matière à notre liste
                     } // Il reste à gérer le cas où le nombre n'existe pas en bdd (Avec un while) pour lui demander de rééssayer sa saisie
                 }
             }
+            return (listeLivrables);
         }
     }
 }

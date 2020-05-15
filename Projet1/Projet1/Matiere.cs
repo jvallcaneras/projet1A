@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Diagnostics;
 
 namespace Projet1
 {
@@ -22,7 +23,7 @@ namespace Projet1
             this.Ref = reference;
         }
 
-        public static void CreationMatiere(int nbMatiere)
+        public static List<Matiere> CreationMatiere(int nbMatiere)
         {
             Console.Clear();
             Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
@@ -65,7 +66,7 @@ namespace Projet1
                             listeMatieres.Add(m); // Si l'utilisateur entre un nombre, on associe ce nombre à la matière associée en XML et on ajoute cette matière à notre liste
                     } // Il reste à gérer le cas où le nombre n'existe pas en bdd (Avec un while) pour lui demander de rééssayer sa saisie
                 }
-            } 
+            } return (listeMatieres);
         }
     }
 }

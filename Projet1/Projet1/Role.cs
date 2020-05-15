@@ -26,7 +26,7 @@ namespace Projet1
 
         //Doit être appelée pour chque intervenant
         //Appeler lors de la création de l'intervenant ?
-        public static void CreationRole(List<Role> listeRole, string nomIntervenant, string prenomIntervenant) 
+        public static List<Role> CreationRole(List<Role> listeRole, string nomIntervenant, string prenomIntervenant)
         {
             Console.Clear();
             Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
@@ -65,9 +65,8 @@ namespace Projet1
                         listeRole.Add(r); // Si l'utilisateur entre un nombre, on associe ce nombre à la matière associée en XML et on ajoute cette matière à notre liste
                 }
 
-
-
             }
+            return (listeRole);
         }
 
     }

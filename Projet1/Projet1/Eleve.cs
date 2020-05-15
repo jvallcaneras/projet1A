@@ -7,8 +7,8 @@ namespace Projet1
     class Eleve : Intervenant
     {
         //Attributs
-        private string _nom;
-        private string _prenom;
+        public string _nom;
+        public string _prenom;
         private int _promo;
         private int _annee;
 
@@ -16,7 +16,7 @@ namespace Projet1
         public int Promo { get => _promo; set => _promo = value; }
         public string Nom { get => _nom; set => _nom = value; }
         public string Prenom { get => _prenom; set => _prenom = value; }
-        public int Annee{ get => _prenom; set => _prenom = value; }
+        public int Annee{ get => _annee; set => _annee = value; }
 
         //Contructeur
         public Eleve(string nom, string prenom, int promo, int annee) : base("Eleve", 1)

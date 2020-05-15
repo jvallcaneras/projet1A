@@ -17,27 +17,9 @@ namespace Projet1
         private int _nbRole;  // --> Affecter le rôle en fonction du nb d'intervenant ?
         private int _nbLivrable;
         private int _nbMatiere;
-        private List<Matiere> _matieres;        
-        private List<string> _livrables;
-        private List<string> _intervenants;
-
-        //Constructeurs
-        public Projet(string nomProjet, int typeProjet, int dureeSemaine, int nbIntervenant, int nbLivrables, int nbMatiere, List<string> livrables, List<Matiere> ListeMatières, List<string> intervenants)
-
-        {
-            this.NomProjet = nomProjet;
-            this.TypeProjet = typeProjet;
-            this.DureeSemaine = dureeSemaine;
-            this.NbIntervenant = nbIntervenant;
-            this.NbLivrable = nbLivrables;
-            this.NbMatiere = nbMatiere;
-            this.Livrables = livrables;
-            this.Matieres = ListeMatières;
-            this.Intervenants = intervenants;
-        }
-
-        public Projet() { }
-
+        private List<Matiere> _matieres;
+        private List<Livrable> _livrables;
+        private List<Intervenant> _intervenants;
 
         //Propritétés
 
@@ -48,9 +30,23 @@ namespace Projet1
         public int NbRole { get => _nbRole; set => _nbRole = value; }
         public int NbLivrable { get => _nbLivrable; set => _nbLivrable = value; }
         public int NbMatiere { get => _nbMatiere; set => _nbMatiere = value; }
-        public List<string> Livrables { get => _livrables; set => _livrables = value; }
-        public List<string> Intervenants { get => _intervenants; set => _intervenants = value; }
+        public List<Livrable> Livrables { get => _livrables; set => _livrables = value; }
+        public List<Intervenant> Intervenants { get => _intervenants; set => _intervenants = value; }
         public List<Matiere> Matieres { get => _matieres; set => _matieres = value; }
+
+        private Projet(string nomProjet, int typeProjet, int dureeSemaine, int nbIntervenant, int nbLivrable, int nbMatiere, List<Matiere> matieres, List<Livrable> livrables, List<Intervenant> intervenants)
+        {
+            this.NomProjet = nomProjet;
+            this.TypeProjet = typeProjet;
+            this.DureeSemaine = dureeSemaine;
+            this.NbIntervenant = nbIntervenant;
+            this.NbLivrable = nbLivrable;
+            this.NbMatiere = nbMatiere;
+            this.Matieres = matieres;
+            this.Livrables = livrables;
+            this.Intervenants = intervenants;
+        }
+
 
 
         //Methodes
@@ -62,14 +58,14 @@ namespace Projet1
             Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
             Console.WriteLine("Quel est le nom du projet que vous souhaitez créer ?");
             string nomProjet = Console.ReadLine();
-            
+
             Console.Clear();
             Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
             Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
             Console.WriteLine("Quel type de projet souhaitez-vous créer ? \n 1 pour projet transdisciplinaire \n 2 pour projet transpromotion" +
                 "\n 3 pour projet de fin d'études \n 4 pour projet d'introduction à la programmation \n 5 pour autre");
             int typeProjet = Convert.ToInt32(Console.ReadLine());
-                       
+
             Console.Clear();
             Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
             Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
@@ -81,7 +77,16 @@ namespace Projet1
             Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
             Console.WriteLine("Combien y a-t-il d'acteurs ? (etudiants et encadrants)");
             int nbIntervenant = Convert.ToInt32(Console.ReadLine());
-            List<Matiere> listeMatieres = new List<Matiere>();
+            List<Intervenant> listeIntervenants = new List<Intervenant>();
+            listeIntervenants = Intervenant.CreationIntervenant(nbIntervenant);
+
+            List<Role> listeRoles = new List<Role>();
+            foreach (Eleve e in listeIntervenants)
+            { listeRoles = Role.CreationRole(listeRoles, e._nom, e._prenom); }
+            foreach (Professeur p in listeIntervenants)
+            { listeRoles = Role.CreationRole(listeRoles, p._nom, p._prenom); }
+            foreach (Exte ex in listeIntervenants)
+            { listeRoles = Role.CreationRole(listeRoles, ex._nom, ex._prenom); }
 
 
             Console.Clear();
@@ -89,18 +94,19 @@ namespace Projet1
             Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
             Console.WriteLine("Combien de matières concerne-t-il ?");
             int nbMatiere = Convert.ToInt32(Console.ReadLine());
-            Matiere.CreationMatiere(nbMatiere);
+            List<Matiere> listeMatieres = new List<Matiere>();
+            listeMatieres = Matiere.CreationMatiere(nbMatiere);
 
             Console.Clear();
             Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
             Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
             Console.WriteLine("Combien de livrables sont attendus ?");
             int nbLivrables = Convert.ToInt32(Console.ReadLine());
-            Livrable.CreationLivrable(nbLivrables);
+            List<Livrable> listeLivrables = new List<Livrable>();
+            listeLivrables = Livrable.CreationLivrable(nbLivrables);
 
 
-
-           //Projet projet = new Projet(nomProjet, typeProjet, nbSemaines, nbIntervenant, nbLivrables, nbMatiere, listeLivrables, listeMatieres, listeIntervenants);
+            Projet projet = new Projet(nomProjet, typeProjet, nbSemaines, nbIntervenant, nbLivrables, nbMatiere, listeMatieres, listeLivrables, listeIntervenants);
 
             // Le stocker en XML
 

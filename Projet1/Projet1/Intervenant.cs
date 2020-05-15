@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace Projet1
 {
-    class Intervenant
+    public class Intervenant
     {
         //Attributs de la classe
         private string _type;
@@ -26,7 +26,7 @@ namespace Projet1
 
 
         //Methodes
-        public static void CreationIntervenant(int nbIntervenant)
+        public static List<Intervenant> CreationIntervenant(int nbIntervenant)
         {
 
             Console.Clear();
@@ -67,8 +67,8 @@ namespace Projet1
                         listeIntervenant.Add(exte);
                         break;
                 }
-
             }
+            return (listeIntervenant);
         }
     }
 }

@@ -7,8 +7,8 @@ namespace Projet1
     class Exte : Intervenant
     {
         //Attributs
-        private string _nom;
-        private string _prenom;
+        public string _nom;
+        public string _prenom;
         private string _entreprise;
 
         public string Nom { get => _nom; set => _nom = value; }
