@@ -17,15 +17,16 @@ namespace Projet1
         public string Libelle { get => _libelle; set => _libelle = value; }
         public int Reference { get => _reference; set => _reference = value; }
 
-        //Constructeur
+        //Constructeurs
         public Role(string libelle, int reference)
         {
             this.Libelle = libelle;
             this.Reference = reference;
         }
 
-        //Doit être appelée pour chque intervenant
-        //Appeler lors de la création de l'intervenant ?
+        public Role() { }
+
+        //Methodes
         public static List<Role> CreationRole(List<Role> listeRole, string nomIntervenant, string prenomIntervenant)
         {
             Menu.Bandeau();

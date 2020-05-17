@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,10 +16,7 @@ namespace Projet1
         private string _nomProjet;
         private int _typeProjet; // 1 - Transdi / 2 - transpromo / 3 - PFE / 4 - Intro prog / 5 - autre (à étoffer)
         private int _dureeSemaine;
-        private int _nbIntervenant;
-        private int _nbRole;
-        private int _nbLivrable;
-        private int _nbMatiere;
+
         private List<Matiere> _matieres;
         private List<Livrable> _livrables;
         private List<Intervenant> _intervenants;
@@ -29,36 +27,33 @@ namespace Projet1
         public int TypeProjet { get => _typeProjet; set => _typeProjet = value; }
         public string NomProjet { get => _nomProjet; set => _nomProjet = value; }
         public int DureeSemaine { get => _dureeSemaine; set => _dureeSemaine = value; }
-        public int NbIntervenant { get => _nbIntervenant; set => _nbIntervenant = value; }
-        public int NbRole { get => _nbRole; set => _nbRole = value; }
-        public int NbLivrable { get => _nbLivrable; set => _nbLivrable = value; }
-        public int NbMatiere { get => _nbMatiere; set => _nbMatiere = value; }
         public List<Livrable> Livrables { get => _livrables; set => _livrables = value; }
         public List<Intervenant> Intervenants { get => _intervenants; set => _intervenants = value; }
         public List<Matiere> Matieres { get => _matieres; set => _matieres = value; }
         public List<Role> Roles { get => _roles; set => _roles = value; }
 
-        private Projet(int reference, string nomProjet, int typeProjet, int dureeSemaine, int nbIntervenant, int nbLivrable, int nbMatiere, List<Matiere> matieres, List<Livrable> livrables, List<Intervenant> intervenants, List<Role> roles)
+        //Constructeurs 
+        public Projet(int reference, string nomProjet, int typeProjet, int dureeSemaine, List<Matiere> matieres, List<Livrable> livrables, List<Intervenant> intervenants, List<Role> roles)
         {
             this.Reference = reference;
             this.NomProjet = nomProjet;
             this.TypeProjet = typeProjet;
             this.DureeSemaine = dureeSemaine;
-            this.NbIntervenant = nbIntervenant;
-            this.NbLivrable = nbLivrable;
-            this.NbMatiere = nbMatiere;
             this.Matieres = matieres;
             this.Livrables = livrables;
             this.Intervenants = intervenants;
             this.Roles = roles;
         }
 
+        public Projet() { }
 
 
         //Methodes
 
         public static void CreationProjet()
-        {  //Referencage du projet
+        {
+      
+            //Referencage du projet
 
             int reference = 0;
             XmlSerializer serializer = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
@@ -86,11 +81,8 @@ namespace Projet1
             Console.WriteLine("Quelle est la durée du projet ? (en semaines)");
             int nbSemaines = Convert.ToInt32(Console.ReadLine());
 
-            Menu.Bandeau();
-            Console.WriteLine("Combien y a-t-il d'acteurs ? (etudiants et encadrants)");
-            int nbIntervenant = Convert.ToInt32(Console.ReadLine());
             List<Intervenant> listeIntervenants = new List<Intervenant>();
-            listeIntervenants = Intervenant.CreationIntervenant(nbIntervenant);
+            listeIntervenants = Intervenant.CreationIntervenant();
 
             List<Role> listeRoles = new List<Role>();
             foreach (Eleve e in listeIntervenants)
@@ -100,27 +92,29 @@ namespace Projet1
             foreach (Exte ex in listeIntervenants)
             { listeRoles = Role.CreationRole(listeRoles, ex._nom, ex._prenom); }
 
-            Menu.Bandeau();
-            Console.WriteLine("Combien de matières concerne-t-il ?");
-            int nbMatiere = Convert.ToInt32(Console.ReadLine());
             List<Matiere> listeMatieres = new List<Matiere>();
-            listeMatieres = Matiere.CreationMatiere(nbMatiere);
+            listeMatieres = Matiere.CreationMatiere();
 
-            Menu.Bandeau();
-            Console.WriteLine("Combien de livrables sont attendus ?");
-            int nbLivrables = Convert.ToInt32(Console.ReadLine());
             List<Livrable> listeLivrables = new List<Livrable>();
-            listeLivrables = Livrable.CreationLivrable(nbLivrables);
+            listeLivrables = Livrable.CreationLivrable();
 
-            Projet projet = new Projet(reference, nomProjet, typeProjet, nbSemaines, nbIntervenant, nbLivrables, nbMatiere, listeMatieres, listeLivrables, listeIntervenants, listeRoles);
+            Projet projet = new Projet(reference, nomProjet, typeProjet, nbSemaines, listeMatieres, listeLivrables, listeIntervenants, listeRoles);
 
             //Stockage en XML
-
-            XmlSerializer xs = new XmlSerializer(typeof(List<Projet>));
+            
+            XmlSerializer serie = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
+            List<Projet> newList = null; // Pour que la liste soit accessible en dehors du using filestream...
+            using (FileStream stream = File.OpenRead("projets.xml"))
+            {
+                newList = (List<Projet>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
+            }
+            newList.Add(projet);
+            XmlSerializer xs1 = new XmlSerializer(typeof(List<Projet>));
             using (StreamWriter wr = new StreamWriter("projets.xml"))
             {
-                xs.Serialize(wr, projet);
+                xs1.Serialize(wr, newList);// On réécrie le fichier de matières en ajoutant la nouvelle 
             }
+
         }
 
         public static void AffichageProjet()
@@ -226,7 +220,7 @@ namespace Projet1
                     }
                 }
 
-            }
-        }
+            } 
+        } 
     }
 }

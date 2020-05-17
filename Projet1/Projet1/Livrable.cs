@@ -15,22 +15,27 @@ namespace Projet1
         private string _typeLivrable;
         private string _dateRendu;
 
+        //Accesseurs
         public string dateRendu { get => _dateRendu; set => _dateRendu = value; }
         public int Ref { get => reference; set => reference = value; }
         public string typeLivrable { get => _typeLivrable; set => _typeLivrable = value; }
 
         //Constructeur
-        public Livrable(string date, int reference)
+        public Livrable(string type, int reference, string date)
         {
             this.dateRendu = date;
             this.Ref = reference;
+            this.typeLivrable = type;
         }
+        public Livrable() { }
 
         //Méthodes
-        public static List<Livrable> CreationLivrable(int nbLivrable)
+        public static List<Livrable> CreationLivrable()
         {
 
             Menu.Bandeau();
+            Console.WriteLine("Combien de livrables sont attendus ?");
+            int nbLivrable = Convert.ToInt32(Console.ReadLine());
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Livrable>)); // Initialisation de l'outils de serialisation
             List<Livrable> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
@@ -52,10 +57,10 @@ namespace Projet1
                 if (entreeUtilisateur == 0)
                 {
                     Console.WriteLine("Veuillez saisir le nom de la matière.");
-                    Livrable liv = new Livrable(Console.ReadLine(), dezerializedList.Count + 1); // On créé le nouveau livrable
-                    dezerializedList.Add(liv);
                     Console.WriteLine("Veuillez saisir la date de rendu.");
-                    liv.dateRendu = Console.ReadLine();
+                    string dateRendu = Console.ReadLine();
+                    Livrable liv = new Livrable(Console.ReadLine(), dezerializedList.Count + 1, dateRendu); // On créé le nouveau livrable
+                    dezerializedList.Add(liv);
                     listeLivrables.Add(liv);
                     XmlSerializer xs1 = new XmlSerializer(typeof(List<Livrable>));
                     using (StreamWriter wr = new StreamWriter("livrables.xml"))

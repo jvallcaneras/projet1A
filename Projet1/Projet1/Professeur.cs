@@ -10,11 +10,11 @@ namespace Projet1
         public string _nom;
         public string _prenom;
     
-        //Constructeur
+        //Accesseurs
         public string Nom { get => _nom; set => _nom = value; }
         public string Prenom { get => _prenom; set => _prenom = value; }
 
-        //Accesseur
+        //Constructeurs
         public Professeur(string nom, string prenom) : base("Professeur", 2)
         {
             Nom = nom;

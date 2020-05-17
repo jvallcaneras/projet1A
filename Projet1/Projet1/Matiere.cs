@@ -14,18 +14,24 @@ namespace Projet1
         private string _nomMatiere;
         private int _ref;
 
+        //Accesseurs
         public string NomMatiere { get => _nomMatiere; set => _nomMatiere = value; }
         public int Ref { get => _ref; set => _ref = value; }
 
+        //Constructeurs
         public Matiere (string nomMatiere, int reference)
         {
             this.NomMatiere = nomMatiere;
             this.Ref = reference;
         }
+        public Matiere() { }
 
-        public static List<Matiere> CreationMatiere(int nbMatiere)
+        //Methodes
+        public static List<Matiere> CreationMatiere()
         {
             Menu.Bandeau();
+            Console.WriteLine("Combien de matières concerne-t-il ?");
+            int nbMatiere = Convert.ToInt32(Console.ReadLine());
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Matiere>)); // Initialisation de l'outils de serialisation
             List<Matiere> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...

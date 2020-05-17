@@ -17,18 +17,22 @@ namespace Projet1
         public string Type { get => _type; set => _type = value; }
         public int Reference { get => _reference; set => _reference = value; }
 
-        //Constructeur
+        //Constructeurs
         public Intervenant(string type, int reference)
         {
             this.Type = type;
             this.Reference = reference;
         }
 
+        public Intervenant() { }
+
 
         //Methodes
-        public static List<Intervenant> CreationIntervenant(int nbIntervenant)
+        public static List<Intervenant> CreationIntervenant()
         {
             Menu.Bandeau();
+            Console.WriteLine("Combien y a-t-il d'acteurs ? (etudiants et encadrants)");
+            int nbIntervenant = Convert.ToInt32(Console.ReadLine());
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Intervenant>)); // Initialisation de l'outils de serialisation
             List<Intervenant> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
