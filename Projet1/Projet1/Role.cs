@@ -7,13 +7,13 @@ using System.Xml.Serialization;
 
 namespace Projet1
 {
-    class Role
+    public class Role
     {
         //Attributs de la classe
         private string _libelle;
         private int _reference;
 
-        //Accesseur     
+        //Accesseurs     
         public string Libelle { get => _libelle; set => _libelle = value; }
         public int Reference { get => _reference; set => _reference = value; }
 
@@ -28,9 +28,7 @@ namespace Projet1
         //Appeler lors de la création de l'intervenant ?
         public static List<Role> CreationRole(List<Role> listeRole, string nomIntervenant, string prenomIntervenant)
         {
-            Console.Clear();
-            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
-            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
+            Menu.Bandeau();
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Role>)); // Initialisation de l'outils de serialisation
             List<Role> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...

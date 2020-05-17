@@ -30,9 +30,7 @@ namespace Projet1
         public static List<Livrable> CreationLivrable(int nbLivrable)
         {
 
-            Console.Clear();
-            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
-            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
+            Menu.Bandeau();
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Livrable>)); // Initialisation de l'outils de serialisation
             List<Livrable> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...

@@ -7,6 +7,15 @@ namespace Projet1
     public class Menu
     {   
 
+        public static void Bandeau() 
+        {
+            Console.Clear();
+            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
+            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
+
+        }
+
+
         public static int AfficherMenuPrincipal()
         {
             ConsoleKeyInfo keyPressed; // Nous permettra de récupérer l'entrée du clavier afin de bouger dans le menu
