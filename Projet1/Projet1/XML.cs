@@ -10,8 +10,6 @@ namespace Projet1
     class XML
     {
 
-
-
     public static void CreationXML() //Intervenant, Livrables, Matieres, Roles et Projet
         {
             //Creation liste XML matières
@@ -40,6 +38,13 @@ namespace Projet1
             livrable.Add(l2);
             livrable.Add(l3);
 
+            Livrable test1 = new Livrable("Rapport", 1, "21 mai 2020");
+            Livrable test2 = new Livrable("Soutenance", 2, "21 mai 2020");
+            List<Livrable> livrabletest = new List<Livrable>();
+            livrabletest.Add(test1);
+            livrabletest.Add(test2);
+
+
             XmlSerializer xa = new XmlSerializer(typeof(List<Livrable>));
             using (StreamWriter wa = new StreamWriter("livrables.xml"))
             {
@@ -47,18 +52,12 @@ namespace Projet1
             }
 
             //Creation liste XML intervenants
-            Intervenant i1 = new Intervenant("Eleve", 1);
-            Intervenant i2 = new Intervenant("Professeur", 2);
-            Intervenant i3 = new Intervenant("Intervenant Exterieur", 3);
             Eleve e1 = new Eleve("Vallcaneras", "Julie", 2022, 1);
             Eleve e2 = new Eleve("Pierre", "Fanny", 2022, 1);
             Professeur prof1 = new Professeur("Pesquet", "Baptiste");
             Professeur prof2 = new Professeur("Clermont", "Edwige");
 
             List<Intervenant> intervenant = new List<Intervenant>();
-            intervenant.Add(i1);
-            intervenant.Add(i2);
-            intervenant.Add(i3);
             intervenant.Add(e1);
             intervenant.Add(e2);
             intervenant.Add(prof1);
@@ -93,8 +92,8 @@ namespace Projet1
 
             //Creation liste XML projets
 
-            Projet p1 = new Projet(1, "Test1", 1, 12, matiere, livrable, intervenant, role);
-            Projet p2 = new Projet(2, "Test2", 2, 12, matiere, livrable, intervenant, role);
+            Projet p1 = new Projet(1, "Test1", 1, 12, matiere, livrabletest, intervenant, role);
+            Projet p2 = new Projet(2, "Test2", 2, 12, matiere, livrabletest, intervenant, role);
 
             List<Projet> projet = new List<Projet>();
             projet.Add(p1);
@@ -112,10 +111,8 @@ namespace Projet1
             {
                 dezerializedList = (List<Intervenant>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
             }
-            foreach (Intervenant i in dezerializedList)// Pour chaque matière récupérée dans la liste desérialisée
-            {
-                Console.WriteLine(i.Reference + "pour" + i.Type); // On affiche les attributs de la matière
-            }
+
+            Projet.AffichageFicheProjet(1);
 
         }
     }

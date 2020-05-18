@@ -134,17 +134,41 @@ namespace Projet1
                 if (_referenceprojet == p.Reference)
                 {
                     Console.WriteLine("Bienvenue sur la fiche du projet " + p._nomProjet);
-                    Console.WriteLine("Ce projet est un projet de type " + p.TypeProjet + " impliquant les matières ");
-                    foreach(Matiere m in p.Matieres) 
+                    Console.WriteLine("\nCe projet est un projet de type " + p.TypeProjet +" et d'une durée de "+ p.DureeSemaine+ " semaines. Il implique les matières :");
+                    foreach (Matiere m in p.Matieres)
                     {
                         Console.WriteLine("- " + m.NomMatiere);
                     }
-                    Console.WriteLine("Les intervenants de ce projet sont : ");
-
-
+                    Console.WriteLine("\nLes intervenants de ce projet sont : ");
+                    foreach (Eleve e in p.Intervenants.OfType<Eleve>())
+                    {
+                        foreach (Role r in p.Roles)
+                        {
+                            if (p.Intervenants.IndexOf(e) == p.Roles.IndexOf(r))
+                            {
+                                Console.WriteLine("- " + e.Prenom + " " + e.Nom + " - Etudiant.e en " + e.Annee + "A (Promo " + e.Promo + ") qui est " + r.Libelle);
+                            }
+                        }
+                    }
+                    foreach (Professeur prof in p.Intervenants.OfType<Professeur>())
+                    {
+                        foreach (Role r in p.Roles)
+                        {
+                            if (p.Intervenants.IndexOf(prof) == p.Roles.IndexOf(r))
+                            {
+                                Console.WriteLine("- " + prof.Prenom + " " + prof.Nom + " - Professeur.e à l'ENSC qui est " + r.Libelle);
+                            }
+                        }
+                    }
+                    Console.WriteLine("\nLes livrables attendus pour ce projet sont de les suivants : ");
+                    foreach (Livrable l in p.Livrables)
+                    {
+                        Console.WriteLine("- " + l.typeLivrable + " à rendre pour le " + l.dateRendu);
+                    }
                 }
             }
         }
+
 
         public static void AffichageProjet()
         {

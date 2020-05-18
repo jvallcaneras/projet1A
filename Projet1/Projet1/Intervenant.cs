@@ -7,6 +7,9 @@ using System.Xml.Serialization;
 
 namespace Projet1
 {
+    [XmlInclude(typeof(Eleve))]
+    [XmlInclude(typeof(Professeur))]
+    [XmlInclude(typeof(Exte))]
     public class Intervenant
     {
         //Attributs de la classe
@@ -40,10 +43,10 @@ namespace Projet1
             {
                 dezerializedList = (List<Intervenant>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
             }
-            foreach (Intervenant i in dezerializedList)// Pour chaque matière récupérée dans la liste desérialisée
-            {
-                Console.WriteLine(i.Reference + "pour" + i.Type); // On affiche les attributs de la matière
-            }
+           
+            Console.WriteLine("Catégorie 1 - Etudiant");
+            Console.WriteLine("Catégorie 2 - Professeur");
+            Console.WriteLine("Catégorie 3 - Intervenant extérieur");
 
             int cpt = 0;
             List<Intervenant> listeIntervenant = new List<Intervenant>();
@@ -51,7 +54,7 @@ namespace Projet1
             while (cpt < nbIntervenant)
             {
                 cpt++;
-                Console.WriteLine("Indiquez la catégorie de l'intervenant n° " + cpt);
+                Console.WriteLine("Indiquez le chiffre correspondant à la catégorie de l'intervenant n° " + cpt);
                 int entreeUtilisateur = Convert.ToInt32(Console.ReadLine());
                 switch (entreeUtilisateur)
                 {
