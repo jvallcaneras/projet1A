@@ -65,6 +65,7 @@ namespace Projet1
             intervenant.Add(prof2);
 
             XmlSerializer xs = new XmlSerializer(typeof(List<Intervenant>));
+
             using (StreamWriter wr = new StreamWriter("intervenants.xml"))
             {
                 xs.Serialize(wr, intervenant);

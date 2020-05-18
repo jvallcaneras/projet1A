@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
+using System.Diagnostics;
 
 namespace Projet1
 {
+    [Serializable]
     public class Eleve : Intervenant
     {
         //Attributs
@@ -26,7 +31,7 @@ namespace Projet1
             this.Promo = promo;
             this.Annee = annee;
         }
-
+ 
         public Eleve() { }
         //Methodes
         public static Eleve CreerEtudiant()
