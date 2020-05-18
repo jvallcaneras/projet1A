@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Projet1
 {
-    class Professeur : Intervenant
+    public class Professeur : Intervenant
     {
         //Attributs
         public string _nom;
@@ -20,6 +20,7 @@ namespace Projet1
             Nom = nom;
             Prenom = prenom;
         }
+        public Professeur() { }
 
         //Méthodes 
         public static Professeur CreerProfesseur()

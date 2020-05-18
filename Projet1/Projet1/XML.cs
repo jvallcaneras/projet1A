@@ -50,11 +50,19 @@ namespace Projet1
             Intervenant i1 = new Intervenant("Eleve", 1);
             Intervenant i2 = new Intervenant("Professeur", 2);
             Intervenant i3 = new Intervenant("Intervenant Exterieur", 3);
+            Eleve e1 = new Eleve("Vallcaneras", "Julie", 2022, 1);
+            Eleve e2 = new Eleve("Pierre", "Fanny", 2022, 1);
+            Professeur prof1 = new Professeur("Pesquet", "Baptiste");
+            Professeur prof2 = new Professeur("Clermont", "Edwige");
 
             List<Intervenant> intervenant = new List<Intervenant>();
             intervenant.Add(i1);
             intervenant.Add(i2);
             intervenant.Add(i3);
+            intervenant.Add(e1);
+            intervenant.Add(e2);
+            intervenant.Add(prof1);
+            intervenant.Add(prof2);
 
             XmlSerializer xs = new XmlSerializer(typeof(List<Intervenant>));
             using (StreamWriter wr = new StreamWriter("intervenants.xml"))
@@ -95,6 +103,17 @@ namespace Projet1
             using (StreamWriter wc = new StreamWriter("projets.xml"))
             {
                 xc.Serialize(wc, projet);
+            }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Intervenant>)); // Initialisation de l'outils de serialisation
+            List<Intervenant> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
+            using (FileStream stream = File.OpenRead("intervenants.xml"))
+            {
+                dezerializedList = (List<Intervenant>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
+            }
+            foreach (Intervenant i in dezerializedList)// Pour chaque matière récupérée dans la liste desérialisée
+            {
+                Console.WriteLine(i.Reference + "pour" + i.Type); // On affiche les attributs de la matière
             }
 
         }

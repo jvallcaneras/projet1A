@@ -1,4 +1,6 @@
-﻿using System;
+﻿//CREER UNE LISTE DE TYPES DE PROJETS SUR LE MODELE DES MATIERES ?
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -52,7 +54,7 @@ namespace Projet1
 
         public static void CreationProjet()
         {
-      
+
             //Referencage du projet
 
             int reference = 0;
@@ -101,7 +103,7 @@ namespace Projet1
             Projet projet = new Projet(reference, nomProjet, typeProjet, nbSemaines, listeMatieres, listeLivrables, listeIntervenants, listeRoles);
 
             //Stockage en XML
-            
+
             XmlSerializer serie = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
             List<Projet> newList = null; // Pour que la liste soit accessible en dehors du using filestream...
             using (FileStream stream = File.OpenRead("projets.xml"))
@@ -115,6 +117,33 @@ namespace Projet1
                 xs1.Serialize(wr, newList);// On réécrie le fichier de matières en ajoutant la nouvelle 
             }
 
+        }
+
+
+        public static void AffichageFicheProjet(int _referenceprojet)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
+            List<Projet> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
+            using (FileStream stream = File.OpenRead("projets.xml"))
+            {
+                dezerializedList = (List<Projet>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
+            }
+
+            foreach (Projet p in dezerializedList)
+            {
+                if (_referenceprojet == p.Reference)
+                {
+                    Console.WriteLine("Bienvenue sur la fiche du projet " + p._nomProjet);
+                    Console.WriteLine("Ce projet est un projet de type " + p.TypeProjet + " impliquant les matières ");
+                    foreach(Matiere m in p.Matieres) 
+                    {
+                        Console.WriteLine("- " + m.NomMatiere);
+                    }
+                    Console.WriteLine("Les intervenants de ce projet sont : ");
+
+
+                }
+            }
         }
 
         public static void AffichageProjet()
@@ -214,13 +243,13 @@ namespace Projet1
 
                 foreach (Matiere m in p.Matieres)
                 {
-                    if(m.NomMatiere == mat) 
+                    if (m.NomMatiere == mat)
                     {
                         Console.WriteLine(p.NomProjet);
                     }
                 }
 
-            } 
-        } 
+            }
+        }
     }
 }

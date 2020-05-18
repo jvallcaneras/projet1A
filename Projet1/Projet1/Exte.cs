@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Projet1
 {
-    class Exte : Intervenant
+    public class Exte : Intervenant
     {
         //Attributs
         public string _nom;
@@ -21,7 +21,7 @@ namespace Projet1
             Prenom = prenom;
             Entreprise = entreprise;
         }
-
+        public Exte() { }
         public static Exte CreerExte()
         {
             Console.WriteLine("Indiquez le nom de l'intervenant exterieur");

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Projet1
 {
-    class Eleve : Intervenant
+    public class Eleve : Intervenant
     {
         //Attributs
         public string _nom;
@@ -27,6 +27,7 @@ namespace Projet1
             this.Annee = annee;
         }
 
+        public Eleve() { }
         //Methodes
         public static Eleve CreerEtudiant()
         {
