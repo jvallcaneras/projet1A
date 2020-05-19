@@ -39,9 +39,9 @@ namespace Projet1
             }
             foreach (Role r in dezerializedList)// Pour chaque matière récupérée dans la liste desérialisée
             {
-                Console.WriteLine(r.Reference + "pour" + r.Libelle); // On affiche les attributs de la matière
+                Console.WriteLine("Tapez " + r.Reference + " pour " + r.Libelle); // On affiche les attributs de la matière
             }
-            Console.WriteLine("Quel est le rôle de " + nomIntervenant + " " + prenomIntervenant + " ? Tapez 0 si le rôle n'est pas dans la liste.");
+            Console.WriteLine("\nQuel est le rôle de " + prenomIntervenant + " " + nomIntervenant + " ? Tapez 0 si le rôle n'est pas dans la liste.");
 
             int entreeUtilisateur = Convert.ToInt32(Console.ReadLine());
             if (entreeUtilisateur == 0)

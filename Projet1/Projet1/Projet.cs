@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace Projet1
 {
@@ -57,7 +59,7 @@ namespace Projet1
 
             //Referencage du projet
 
-            int reference = 0;
+            int reference = 1; //Nécessite un décalage de 1 car la valeur de référence sera le nombre de projets existants +1.
             XmlSerializer serializer = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
             List<Projet> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
             using (FileStream stream = File.OpenRead("projets.xml"))
@@ -87,11 +89,11 @@ namespace Projet1
             listeIntervenants = Intervenant.CreationIntervenant();
 
             List<Role> listeRoles = new List<Role>();
-            foreach (Eleve e in listeIntervenants)
+            foreach (Eleve e in listeIntervenants.OfType<Eleve>())
             { listeRoles = Role.CreationRole(listeRoles, e._nom, e._prenom); }
-            foreach (Professeur p in listeIntervenants)
+            foreach (Professeur p in listeIntervenants.OfType<Professeur>())
             { listeRoles = Role.CreationRole(listeRoles, p._nom, p._prenom); }
-            foreach (Exte ex in listeIntervenants)
+            foreach (Exte ex in listeIntervenants.OfType<Exte>())
             { listeRoles = Role.CreationRole(listeRoles, ex._nom, ex._prenom); }
 
             List<Matiere> listeMatieres = new List<Matiere>();
@@ -119,9 +121,41 @@ namespace Projet1
 
         }
 
+        public static void MenuFicheProjet(int _referenceprojet)
+        {
+            AffichageFicheProjet(_referenceprojet);
+
+            Console.WriteLine("\nPour modifier le projet appuyez sur 1");
+            Console.WriteLine("Pour revenir à la liste des projets, appuyez sur 2");
+            Console.WriteLine("Pour revenir au menu principal appuyez sur 3");
+            Console.WriteLine("Pour quitter le gestionnaire appuyez sur 4");
+            int entreeUtilisateur = int.Parse(Console.ReadLine());
+
+            switch (entreeUtilisateur)
+            {
+                case 1:
+                    ModifierProjet(_referenceprojet);
+                    break;
+                case 2:
+                    AffichageProjet();
+                    break;
+                case 3:
+                    Menu.AfficherMenuPrincipal();
+                    break;
+                case 4:
+                    Environment.Exit(0);
+                    break;
+
+                default:
+                    Console.WriteLine("Entrez une valeur correcte");
+                    break;
+            }
+
+        }
 
         public static void AffichageFicheProjet(int _referenceprojet)
         {
+            Menu.Bandeau();
             XmlSerializer serializer = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
             List<Projet> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
             using (FileStream stream = File.OpenRead("projets.xml"))
@@ -134,7 +168,7 @@ namespace Projet1
                 if (_referenceprojet == p.Reference)
                 {
                     Console.WriteLine("Bienvenue sur la fiche du projet " + p._nomProjet);
-                    Console.WriteLine("\nCe projet est un projet de type " + p.TypeProjet +" et d'une durée de "+ p.DureeSemaine+ " semaines. Il implique les matières :");
+                    Console.WriteLine("\nCe projet est un projet de type " + p.TypeProjet + " et d'une durée de " + p.DureeSemaine + " semaines. Il implique les matières :");
                     foreach (Matiere m in p.Matieres)
                     {
                         Console.WriteLine("- " + m.NomMatiere);
@@ -156,19 +190,160 @@ namespace Projet1
                         {
                             if (p.Intervenants.IndexOf(prof) == p.Roles.IndexOf(r))
                             {
-                                Console.WriteLine("- " + prof.Prenom + " " + prof.Nom + " - Professeur.e à l'ENSC qui est " + r.Libelle);
+                                Console.WriteLine("" +
+                                    "- " + prof.Prenom + " " + prof.Nom + " - Professeur.e à l'ENSC qui est " + r.Libelle);
+                            }
+                        }
+                    }
+
+                    foreach (Exte exte in p.Intervenants.OfType<Exte>())
+                    {
+                        foreach (Role r in p.Roles)
+                        {
+                            if (p.Intervenants.IndexOf(exte) == p.Roles.IndexOf(r))
+                            {
+                                Console.WriteLine("" +
+                                    "- " + exte.Prenom + " " + exte.Nom + " - Intervenant exterieur (" + exte.Entreprise + ") qui est " + r.Libelle);
                             }
                         }
                     }
                     Console.WriteLine("\nLes livrables attendus pour ce projet sont de les suivants : ");
                     foreach (Livrable l in p.Livrables)
                     {
-                        Console.WriteLine("- " + l.typeLivrable + " à rendre pour le " + l.dateRendu);
-                    }
+                        Console.WriteLine("- " + l.typeLivrable + " (deadline : " + l.dateRendu + ")");
+                    }                 
                 }
             }
         }
 
+        public static void ModifierProjet(int _referenceprojet)
+        {
+            Menu.Bandeau();
+            AffichageFicheProjet(_referenceprojet);
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
+            List<Projet> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
+            using (FileStream stream = File.OpenRead("projets.xml"))
+            {
+                dezerializedList = (List<Projet>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
+            }
+            foreach (Projet p in dezerializedList)
+            {
+                if (_referenceprojet == p.Reference)
+                {
+                    Console.WriteLine("\n------------------------------------------------------------------------");
+                    Console.WriteLine("Modification du projet " + p._nomProjet);
+                    Console.WriteLine("------------------------------------------------------------------------");
+                    Console.WriteLine("\nLes paramètres actuels du projet sont donnés ci-dessus");
+                    Console.WriteLine("\nPour modifier le nom du projet tapez 1");
+                    Console.WriteLine("Pour modifier son type tapez 2");
+                    Console.WriteLine("Pour modifier sa durée tapez 3");
+                    Console.WriteLine("Pour modifier les matières tapez 4");
+                    Console.WriteLine("Pour modifier les intervenants tapez 5");
+                    Console.WriteLine("Pour modifier les rôles tapez 6");
+                    Console.WriteLine("Pour modifier les livrables tapez 7");
+                    Console.WriteLine("Pour retourner à la fiche projet tapez 0");
+                    int entreeUtilisateur = Int32.Parse(Console.ReadLine());
+
+                    switch (entreeUtilisateur)
+                    {
+                        case 0:
+                            MenuFicheProjet(_referenceprojet);
+                            break;
+                        case 1:
+                            Console.WriteLine("Entrez le nouveau nom du projet");
+                            string newNom = Console.ReadLine();
+                            dezerializedList[_referenceprojet - 1].NomProjet = newNom;
+                            XmlSerializer xs1 = new XmlSerializer(typeof(List<Projet>));
+                            using (StreamWriter wr = new StreamWriter("projets.xml"))
+                            {
+                                xs1.Serialize(wr, dezerializedList);
+                            }
+                            break;
+                        case 2:
+                            Console.WriteLine("Entrez le nouveau type du projet");
+                            int newType = Int32.Parse(Console.ReadLine());
+                            dezerializedList[_referenceprojet - 1].TypeProjet = newType;
+                            XmlSerializer xs2 = new XmlSerializer(typeof(List<Projet>));
+                            using (StreamWriter wr = new StreamWriter("projets.xml"))
+                            {
+                                xs2.Serialize(wr, dezerializedList);
+                            }
+
+                            break;
+                        case 3:
+                            Console.WriteLine("Entrez la nouvelle durée du projet (En nombre de semaines)");
+                            int newnbSemaine = Int32.Parse(Console.ReadLine());
+                            dezerializedList[_referenceprojet - 1].DureeSemaine = newnbSemaine;
+                            XmlSerializer xs3 = new XmlSerializer(typeof(List<Projet>));
+                            using (StreamWriter wr = new StreamWriter("projets.xml"))
+                            {
+                                xs3.Serialize(wr, dezerializedList);
+                            }
+                            break;
+
+                        case 4:
+                            List<Matiere> newMat = new List<Matiere>();
+                            newMat = Matiere.CreationMatiere();
+                            dezerializedList[_referenceprojet - 1].Matieres = newMat;
+                            XmlSerializer xs4 = new XmlSerializer(typeof(List<Projet>));
+                            using (StreamWriter wr = new StreamWriter("projets.xml"))
+                            {
+                                xs4.Serialize(wr, dezerializedList);
+                            }
+                            break;
+
+                        case 5:
+                            List<Intervenant> newInt = new List<Intervenant>();
+                            newInt = Intervenant.CreationIntervenant();
+                            dezerializedList[_referenceprojet - 1].Intervenants = newInt;
+                            XmlSerializer xs5 = new XmlSerializer(typeof(List<Projet>));
+                            using (StreamWriter wr = new StreamWriter("projets.xml"))
+                            {
+                                xs5.Serialize(wr, dezerializedList);
+                            }
+                            break;
+
+                        case 6 :
+                            List<Role> newRole = new List<Role>();
+                            foreach (Eleve e in dezerializedList[_referenceprojet - 1].Intervenants.OfType<Eleve>())
+                            { newRole = Role.CreationRole(newRole, e._nom, e._prenom); }
+                            foreach (Professeur pr in dezerializedList[_referenceprojet - 1].Intervenants.OfType<Professeur>())
+                            { newRole = Role.CreationRole(newRole, pr._nom, pr._prenom); }
+                            foreach (Exte ex in dezerializedList[_referenceprojet - 1].Intervenants.OfType<Exte>())
+                            { newRole = Role.CreationRole(newRole, ex._nom, ex._prenom); }
+
+                            dezerializedList[_referenceprojet - 1].Roles = newRole;
+                            XmlSerializer xs6 = new XmlSerializer(typeof(List<Projet>));
+                            using (StreamWriter wr = new StreamWriter("projets.xml"))
+                            {
+                                xs6.Serialize(wr, dezerializedList);
+                            }
+                            break;
+
+                        case 7:
+                            List<Livrable> newLiv = new List<Livrable>();
+                            newLiv = Livrable.CreationLivrable();
+                            dezerializedList[_referenceprojet - 1].Livrables = newLiv;
+                            XmlSerializer xs7 = new XmlSerializer(typeof(List<Projet>));
+                            using (StreamWriter wr = new StreamWriter("projets.xml"))
+                            {
+                                xs7.Serialize(wr, dezerializedList);
+                            }
+
+                            break;
+
+                        default:
+                            Console.WriteLine("Veuillez entrer une valeur entre correcte");
+                            entreeUtilisateur = Int32.Parse(Console.ReadLine());
+                            break;
+                    }
+
+                    AffichageFicheProjet(_referenceprojet);
+
+                }
+            }
+        }
 
         public static void AffichageProjet()
         {

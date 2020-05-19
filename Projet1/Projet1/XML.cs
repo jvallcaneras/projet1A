@@ -6,7 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 
 namespace Projet1
-{
+{  /*
     class XML
     {
 
@@ -94,10 +94,12 @@ namespace Projet1
 
             Projet p1 = new Projet(1, "Test1", 1, 12, matiere, livrabletest, intervenant, role);
             Projet p2 = new Projet(2, "Test2", 2, 12, matiere, livrabletest, intervenant, role);
+            Projet p3 = new Projet(3, "Test3", 2, 12, matiere, livrabletest, intervenant, role);
 
             List<Projet> projet = new List<Projet>();
             projet.Add(p1);
             projet.Add(p2);
+            projet.Add(p3);
 
             XmlSerializer xc = new XmlSerializer(typeof(List<Projet>));
             using (StreamWriter wc = new StreamWriter("projets.xml"))
@@ -112,8 +114,8 @@ namespace Projet1
                 dezerializedList = (List<Intervenant>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
             }
 
-            Projet.AffichageFicheProjet(1);
+            Projet.MenuFicheProjet(3);
 
         }
-    }
+    }*/
 }

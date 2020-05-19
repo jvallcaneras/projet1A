@@ -41,14 +41,16 @@ namespace Projet1
             }
             foreach (Matiere m in dezerializedList)// Pour chaque matière récupérée dans la liste desérialisée
             {
-                Console.WriteLine(m.Ref + "pour" + m.NomMatiere); // On affiche les attributs de la matière
+                Console.WriteLine("Tapez " + m.Ref + " pour " + m.NomMatiere); // On affiche les attributs de la matière
             }
-            Console.WriteLine("Quelles sont les matières associé au projet ? (Indiquez le chiffre associé à chaque matière, 0 si la matière n'est pas dans la liste);");
+            Console.WriteLine("\nQuelles sont les matières associé au projet ? (Indiquez le chiffre associé à chaque matière, 0 si la matière n'est pas dans la liste);");
             int cpt = 0;
             List<Matiere> listeMatieres = new List<Matiere>();
             while (cpt < nbMatiere)
             {
                 cpt++;
+                Console.WriteLine("Entrez le chiffre correspondant à la matière n°" +cpt +", si elle n'est pas dans la liste, tapez 0");
+                
                 int entreeUtilisateur = Convert.ToInt32(Console.ReadLine());
                 if (entreeUtilisateur == 0)
                 {

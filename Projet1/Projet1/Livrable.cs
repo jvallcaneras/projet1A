@@ -43,25 +43,30 @@ namespace Projet1
             {
                 dezerializedList = (List<Livrable>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
             }
-            foreach (Livrable l in dezerializedList)// Pour chaque matière récupérée dans la liste desérialisée
+            foreach (Livrable l in dezerializedList)// Pour chaque livrable entré dans la liste
             {
-                Console.WriteLine(l.Ref + "pour" + l.typeLivrable); // On affiche les attributs de la matière
+                Console.WriteLine("Tapez " + l.Ref + " pour " + l.typeLivrable); // On affiche les attributs de la matière
             }
-            Console.WriteLine("Indiquez les livrables attendus (Choisissez le chiffre associé au type de livrable. Tapez 0 si le livrable n'est pas dans la liste");
+            Console.WriteLine("\nIndiquez les livrables attendus (Choisissez le chiffre associé au type de livrable. Tapez 0 si le livrable n'est pas dans la liste");
             int cpt = 0;
             List<Livrable> listeLivrables = new List<Livrable>();
             while (cpt < nbLivrable)
             {
                 cpt++;
+                Console.WriteLine("\nIndiquez le type du livrable " + cpt);
+
                 int entreeUtilisateur = Convert.ToInt32(Console.ReadLine());
                 if (entreeUtilisateur == 0)
                 {
-                    Console.WriteLine("Veuillez saisir le nom de la matière.");
-                    Console.WriteLine("Veuillez saisir la date de rendu.");
-                    string dateRendu = Console.ReadLine();
-                    Livrable liv = new Livrable(Console.ReadLine(), dezerializedList.Count + 1, dateRendu); // On créé le nouveau livrable
+                    Console.WriteLine("Veuillez saisir le nouveau type de livrable");
+                    Livrable liv = new Livrable(Console.ReadLine(), dezerializedList.Count + 1, " "); // On créé le nouveau livrable
                     dezerializedList.Add(liv);
-                    listeLivrables.Add(liv);
+
+                    Console.WriteLine("Veuillez saisir la date de rendu du livrable");
+                    string daterendu = Console.ReadLine();
+                    Livrable livproj = new Livrable(liv.typeLivrable, liv.reference, daterendu);
+                    listeLivrables.Add(livproj);
+
                     XmlSerializer xs1 = new XmlSerializer(typeof(List<Livrable>));
                     using (StreamWriter wr = new StreamWriter("livrables.xml"))
                     {
@@ -70,16 +75,23 @@ namespace Projet1
                 }
                 else
                 {
+                    Console.WriteLine("Veuillez saisir la date de rendu.");
+                    string dateRendu = Console.ReadLine();
                     foreach (Livrable l in dezerializedList)
                     {
-                        if (entreeUtilisateur == l.Ref)
-                            Console.WriteLine("Veuillez saisir la date de rendu.");
-                        l.dateRendu = Console.ReadLine();
-                        listeLivrables.Add(l); // Si l'utilisateur entre un nombre, on associe ce nombre à la matière associée en XML et on ajoute cette matière à notre liste
-                    } // Il reste à gérer le cas où le nombre n'existe pas en bdd (Avec un while) pour lui demander de rééssayer sa saisie
-                }
-            }
+                        if (l.Ref == entreeUtilisateur)
+                        {
+                            Livrable l2 = new Livrable(l.typeLivrable, l.reference, dateRendu);
+                            listeLivrables.Add(l2);
+                        }
+                    }
+                }// Si l'utilisateur entre un nombre, on associe ce nombre à la matière associée en XML et on ajoute cette matière à notre liste
+            } // Il reste à gérer le cas où le nombre n'existe pas en bdd (Avec un while) pour lui demander de rééssayer sa saisie
+
+
+
             return (listeLivrables);
         }
     }
 }
+

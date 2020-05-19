@@ -10,8 +10,9 @@ namespace Projet1
         public static void Bandeau() 
         {
             Console.Clear();
-            Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
-            Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
+            Console.WriteLine("------------------------------------------------------------------------");
+            Console.WriteLine("Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
+            Console.WriteLine("------------------------------------------------------------------------");
 
         }
 
@@ -22,27 +23,23 @@ namespace Projet1
             int positionCurseur = 1; // On initialise le curseur à 1 : Position sur "Créer un projet"
             do // On met à jour l'affichage en fonction des touches pressées (haut/bas/entrée)
             {
-                Console.WriteLine("\n\t \t \t \t\t \t \t \t Gestionnaire de projets de l'Ecole Nationale Supérieure de Cognitique");
-                Console.WriteLine("\n \n \n \n \n \n \n \n \n \n");
-
+                Bandeau();
 
                 if (positionCurseur == 1) // le curseur est déplacé en fonction de la valeur de positionCurseur qui est mis à jour plus bas en fonction
                                           // des touches pressées
                 {
-                    Console.Write("\t \t \t \t \t \t \t \t \t \t \t     ");
+                    
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.WriteLine("Créer un projet");
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine(" \t \t \t \t \t \t \t \t \t \t \t    Visualiser les projets");
+                    Console.WriteLine("Visualiser les projets");
                     
                 }
                 else if (positionCurseur == 2)
                 {
-                    Console.WriteLine("\t \t \t \t \t \t \t \t \t \t \t     Créer un projet");
-
-                    Console.Write(" \t \t \t \t \t \t \t \t \t \t \t    ");
+                    Console.WriteLine("Créer un projet");
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.WriteLine("Visualiser les projets");

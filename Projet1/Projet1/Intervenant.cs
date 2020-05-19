@@ -44,9 +44,9 @@ namespace Projet1
                 dezerializedList = (List<Intervenant>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
             }
            
-            Console.WriteLine("Catégorie 1 - Etudiant");
-            Console.WriteLine("Catégorie 2 - Professeur");
-            Console.WriteLine("Catégorie 3 - Intervenant extérieur");
+            Console.WriteLine("Tapez 1 pour Etudiant");
+            Console.WriteLine("Tapez 2 pour Professeur");
+            Console.WriteLine("Tapez 3 pour Intervenant extérieur");
 
             int cpt = 0;
             List<Intervenant> listeIntervenant = new List<Intervenant>();
@@ -54,7 +54,7 @@ namespace Projet1
             while (cpt < nbIntervenant)
             {
                 cpt++;
-                Console.WriteLine("Indiquez le chiffre correspondant à la catégorie de l'intervenant n° " + cpt);
+                Console.WriteLine("\nIndiquez le chiffre correspondant à la catégorie de l'intervenant n° " + cpt);
                 int entreeUtilisateur = Convert.ToInt32(Console.ReadLine());
                 switch (entreeUtilisateur)
                 {
