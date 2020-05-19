@@ -18,9 +18,8 @@ namespace Projet1
         //Attributs de la classe
         private int _reference;
         private string _nomProjet;
-        private int _typeProjet; // 1 - Transdi / 2 - transpromo / 3 - PFE / 4 - Intro prog / 5 - autre (à étoffer)
         private int _dureeSemaine;
-
+        private Type _typeProjet;
         private List<Matiere> _matieres;
         private List<Livrable> _livrables;
         private List<Intervenant> _intervenants;
@@ -28,7 +27,7 @@ namespace Projet1
 
         //Propritétés
         public int Reference { get => _reference; set => _reference = value; }
-        public int TypeProjet { get => _typeProjet; set => _typeProjet = value; }
+        public Type TypeProjet { get => _typeProjet; set => _typeProjet = value; }
         public string NomProjet { get => _nomProjet; set => _nomProjet = value; }
         public int DureeSemaine { get => _dureeSemaine; set => _dureeSemaine = value; }
         public List<Livrable> Livrables { get => _livrables; set => _livrables = value; }
@@ -37,12 +36,12 @@ namespace Projet1
         public List<Role> Roles { get => _roles; set => _roles = value; }
 
         //Constructeurs 
-        public Projet(int reference, string nomProjet, int typeProjet, int dureeSemaine, List<Matiere> matieres, List<Livrable> livrables, List<Intervenant> intervenants, List<Role> roles)
+        public Projet(int reference, string nomProjet, Type typeProjet, int dureeSemaine, List<Matiere> matieres, List<Livrable> livrables, List<Intervenant> intervenants, List<Role> roles)
         {
             this.Reference = reference;
             this.NomProjet = nomProjet;
-            this.TypeProjet = typeProjet;
             this.DureeSemaine = dureeSemaine;
+            this.TypeProjet = typeProjet;
             this.Matieres = matieres;
             this.Livrables = livrables;
             this.Intervenants = intervenants;
@@ -77,9 +76,7 @@ namespace Projet1
             string nomProjet = Console.ReadLine();
 
             Menu.Bandeau();
-            Console.WriteLine("Quel type de projet souhaitez-vous créer ? \n 1 pour projet transdisciplinaire \n 2 pour projet transpromotion" +
-                "\n 3 pour projet de fin d'études \n 4 pour projet d'introduction à la programmation \n 5 pour autre");
-            int typeProjet = Convert.ToInt32(Console.ReadLine());
+            Type typeProjet = Type.CreationType();
 
             Menu.Bandeau();
             Console.WriteLine("Quelle est la durée du projet ? (en semaines)");
@@ -135,6 +132,7 @@ namespace Projet1
             {
                 case 1:
                     ModifierProjet(_referenceprojet);
+                    MenuFicheProjet(_referenceprojet);
                     break;
                 case 2:
                     AffichageProjet();
@@ -168,7 +166,7 @@ namespace Projet1
                 if (_referenceprojet == p.Reference)
                 {
                     Console.WriteLine("Bienvenue sur la fiche du projet " + p._nomProjet);
-                    Console.WriteLine("\nCe projet est un projet de type " + p.TypeProjet + " et d'une durée de " + p.DureeSemaine + " semaines. Il implique les matières :");
+                    Console.WriteLine("\nCe projet est un projet de type " + p.TypeProjet.NomType + " et d'une durée de " + p.DureeSemaine + " semaines. Il implique les matières :");
                     foreach (Matiere m in p.Matieres)
                     {
                         Console.WriteLine("- " + m.NomMatiere);
@@ -261,8 +259,8 @@ namespace Projet1
                             }
                             break;
                         case 2:
-                            Console.WriteLine("Entrez le nouveau type du projet");
-                            int newType = Int32.Parse(Console.ReadLine());
+                            Type newType = new Type();
+                            newType = Type.CreationType();
                             dezerializedList[_referenceprojet - 1].TypeProjet = newType;
                             XmlSerializer xs2 = new XmlSerializer(typeof(List<Projet>));
                             using (StreamWriter wr = new StreamWriter("projets.xml"))

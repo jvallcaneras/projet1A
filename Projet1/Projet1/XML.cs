@@ -6,12 +6,32 @@ using System.Xml;
 using System.Xml.Serialization;
 
 namespace Projet1
-{  /*
+{  
     class XML
     {
 
     public static void CreationXML() //Intervenant, Livrables, Matieres, Roles et Projet
         {
+           
+            //Creation liste XML types
+            Type t1 = new Type("Projet transdisciplinaire", 1);
+            Type t2 = new Type("Projet transpromotion", 2);
+            Type t3 = new Type("Projet de semestre", 3);
+            Type t4 = new Type("Projet de fin d'études (PFE)", 4);
+
+            List<Type> type = new List<Type>();
+            type.Add(t1);
+            type.Add(t2);
+            type.Add(t3);
+            type.Add(t4);
+
+            XmlSerializer xt = new XmlSerializer(typeof(List<Type>));
+            using (StreamWriter wt = new StreamWriter("types.xml"))
+            {
+                xt.Serialize(wt, type);
+            }
+
+
             //Creation liste XML matières
             Matiere m1 = new Matiere("Anglais", 1);
             Matiere m2 = new Matiere("Mathématiques", 2);
@@ -92,9 +112,9 @@ namespace Projet1
 
             //Creation liste XML projets
 
-            Projet p1 = new Projet(1, "Test1", 1, 12, matiere, livrabletest, intervenant, role);
-            Projet p2 = new Projet(2, "Test2", 2, 12, matiere, livrabletest, intervenant, role);
-            Projet p3 = new Projet(3, "Test3", 2, 12, matiere, livrabletest, intervenant, role);
+            Projet p1 = new Projet(1, "Test1", t1, 12, matiere, livrabletest, intervenant, role);
+            Projet p2 = new Projet(2, "Test2", t2, 12, matiere, livrabletest, intervenant, role);
+            Projet p3 = new Projet(3, "Test3", t3, 12, matiere, livrabletest, intervenant, role);
 
             List<Projet> projet = new List<Projet>();
             projet.Add(p1);
@@ -114,8 +134,6 @@ namespace Projet1
                 dezerializedList = (List<Intervenant>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
             }
 
-            Projet.MenuFicheProjet(3);
-
-        }
-    }*/
+        } 
+    }
 }

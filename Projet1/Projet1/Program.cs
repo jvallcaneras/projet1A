@@ -10,6 +10,7 @@ namespace Projet1
         static void Main(string[] args)
         {
             //XML.CreationXML();
+            Projet.MenuFicheProjet(2);
             int choix = Menu.AfficherMenuPrincipal(); // L'entier choix représentera la section du menu sélectionnée par l'utilisateur
              // Si 1 - Création d'un projet
              // Si 2 - Visualisation des projets
