@@ -116,38 +116,9 @@ namespace Projet1
                 xs1.Serialize(wr, newList);// On réécrie le fichier de matières en ajoutant la nouvelle 
             }
 
-        } //OK
-
-        public static void MenuFicheProjet(int _referenceprojet)
-        {
-            AffichageFicheProjet(_referenceprojet);
-
-            Console.WriteLine("\nPour modifier le projet appuyez sur 1");
-            Console.WriteLine("Pour revenir à la liste des projets, appuyez sur 2");
-            Console.WriteLine("Pour revenir au menu principal appuyez sur 3");
-            Console.WriteLine("Pour quitter le gestionnaire appuyez sur 4");
-            int entreeUtilisateur = int.Parse(Console.ReadLine());
-
-            switch (entreeUtilisateur)
-            {
-                case 1:
-                    ModifierProjet(_referenceprojet);
-                    MenuFicheProjet(_referenceprojet);
-                    break;
-                case 2:
-                    AffichageProjets();
-                    break;
-                case 3:
-                    Menu.AfficherMenuPrincipal();
-                    break;
-                case 4:
-                    Environment.Exit(0);
-                    break;
-
-                default:
-                    Console.WriteLine("Entrez une valeur correcte");
-                    break;
-            }
+            Console.WriteLine("Le projet a bien été créé. Appuyez sur une touche pour être redirigé vers la liste de projets");
+            Console.ReadKey();
+            AffichageProjets();
 
         } //OK
 
@@ -246,7 +217,7 @@ namespace Projet1
                     switch (entreeUtilisateur)
                     {
                         case 0:
-                            MenuFicheProjet(_referenceprojet);
+                            Menu.AfficherMenuFicheProjet(_referenceprojet);
                             break;
                         case 1:
                             Console.WriteLine("Entrez le nouveau nom du projet");
@@ -336,8 +307,9 @@ namespace Projet1
                             entreeUtilisateur = Int32.Parse(Console.ReadLine());
                             break;
                     }
-
-                    AffichageFicheProjet(_referenceprojet);
+                    Console.WriteLine("\nLes modifications ont été prises en compte. Appuyez sur une touche pour revenir à la fiche projet");
+                    Console.ReadKey();
+                    Menu.AfficherMenuFicheProjet(_referenceprojet);
 
                 }
             }
@@ -358,9 +330,8 @@ namespace Projet1
                 Console.WriteLine(p.Reference + " - " + p.NomProjet + " (" + p.TypeProjet.NomType + ")");
             }
 
-            Console.WriteLine("\nEntrez le numéro du projet sur lequel vous souhaitez obtenir des informations. Pour effectuer une recherche par filtre, tapez 0.");
-            int entreeUtilisateur = Convert.ToInt32(Console.ReadLine());
-            MenuFicheProjet(entreeUtilisateur);
+            Console.WriteLine("\n");
+            Menu.AfficherMenuListeProjet();
         } //OK
 
         public static void RechercheParEleve()
@@ -403,8 +374,9 @@ namespace Projet1
                 }
             }
 
-            if (cpt == 0) Console.WriteLine("Aucune correspondance n'a été trouvée");
-            Console.ReadKey();
+            if (cpt == 0) { Console.WriteLine("Aucune correspondance n'a été trouvée"); }
+            Console.WriteLine("\n");
+            Menu.AfficherMenuRecherche(1);
         } //OK
 
         public static void RechercheParPromo()
@@ -449,7 +421,8 @@ namespace Projet1
                     Console.WriteLine(" - " + p.NomProjet + " (" + p.TypeProjet.NomType + ")");
                 }
             }
-            Console.ReadKey();
+            Console.WriteLine("\n");
+            Menu.AfficherMenuRecherche(2);
         } //OK
 
         public static void RechercheParAnnee()
@@ -501,7 +474,8 @@ namespace Projet1
                     Console.WriteLine(" - " + p.NomProjet + " (" + p.TypeProjet.NomType + ")");
                 }
             }
-            Console.ReadKey();
+            Console.WriteLine("\n");
+            Menu.AfficherMenuRecherche(3);
         } //OK
 
         public static void RechercheParMotCle()
@@ -568,19 +542,13 @@ namespace Projet1
             {
                 foreach (Projet p in listeproj)
                 {
-                    Console.WriteLine( (listeproj.IndexOf(p)+1)+" - " + p.NomProjet + " (" + p.TypeProjet.NomType + ")");
+                    Console.WriteLine((listeproj.IndexOf(p) + 1) + " - " + p.NomProjet + " (" + p.TypeProjet.NomType + ")");
                 }
             }
-
-            Console.ReadKey();
+            Console.WriteLine("\n");
+            Menu.AfficherMenuRecherche(4);
         } //OK
 
-        public static void MenuRecherche() 
-        { 
-        
-        
-        
-        }
 
 
     }
