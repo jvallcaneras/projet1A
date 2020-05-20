@@ -10,7 +10,7 @@ namespace Projet1
         static void Main(string[] args)
         {
             //XML.CreationXML();
-            Projet.MenuFicheProjet(2);
+            Menu.AfficherMenuProjets();
             int choix = Menu.AfficherMenuPrincipal(); // L'entier choix représentera la section du menu sélectionnée par l'utilisateur
              // Si 1 - Création d'un projet
              // Si 2 - Visualisation des projets
@@ -26,7 +26,7 @@ namespace Projet1
              {
                  // L'utilisateur souhaite accéder à la liste des projets, pour cela, on lance un nouveau menu permettant de choisir sur quels
                  // critères on souhaite les filtrer
-                 int filtre = Menu.AfficherMenuProjets(); // L'entier renvoyé sera le type de filtre utilisé pour l'affichage des projets
+                 Menu.AfficherMenuProjets(); // L'entier renvoyé sera le type de filtre utilisé pour l'affichage des projets
                  //Gérer cela avec des if
              } 
         }

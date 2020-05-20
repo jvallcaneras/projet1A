@@ -116,7 +116,7 @@ namespace Projet1
                 xs1.Serialize(wr, newList);// On réécrie le fichier de matières en ajoutant la nouvelle 
             }
 
-        }
+        } //OK
 
         public static void MenuFicheProjet(int _referenceprojet)
         {
@@ -135,7 +135,7 @@ namespace Projet1
                     MenuFicheProjet(_referenceprojet);
                     break;
                 case 2:
-                    AffichageProjet();
+                    AffichageProjets();
                     break;
                 case 3:
                     Menu.AfficherMenuPrincipal();
@@ -149,7 +149,7 @@ namespace Projet1
                     break;
             }
 
-        }
+        } //OK
 
         public static void AffichageFicheProjet(int _referenceprojet)
         {
@@ -209,10 +209,10 @@ namespace Projet1
                     foreach (Livrable l in p.Livrables)
                     {
                         Console.WriteLine("- " + l.typeLivrable + " (deadline : " + l.dateRendu + ")");
-                    }                 
+                    }
                 }
             }
-        }
+        } //OK
 
         public static void ModifierProjet(int _referenceprojet)
         {
@@ -302,7 +302,7 @@ namespace Projet1
                             }
                             break;
 
-                        case 6 :
+                        case 6:
                             List<Role> newRole = new List<Role>();
                             foreach (Eleve e in dezerializedList[_referenceprojet - 1].Intervenants.OfType<Eleve>())
                             { newRole = Role.CreationRole(newRole, e._nom, e._prenom); }
@@ -341,10 +341,12 @@ namespace Projet1
 
                 }
             }
-        }
+        } //OK
 
-        public static void AffichageProjet()
+        public static void AffichageProjets()
         {
+            Menu.Bandeau();
+            Console.WriteLine("\nListe des projets existants :\n");
             XmlSerializer serializer = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
             List<Projet> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
             using (FileStream stream = File.OpenRead("projets.xml"))
@@ -353,100 +355,233 @@ namespace Projet1
             }
             foreach (Projet p in dezerializedList)// Pour chaque matière récupérée dans la liste desérialisée
             {
-                Console.WriteLine(p.Reference + " - " + p.NomProjet + "(" + p.TypeProjet + ")");
+                Console.WriteLine(p.Reference + " - " + p.NomProjet + " (" + p.TypeProjet.NomType + ")");
             }
 
-            Console.WriteLine("Entrez le numéro du projet sur lequel vous souhaitez obtenir des informations");
+            Console.WriteLine("\nEntrez le numéro du projet sur lequel vous souhaitez obtenir des informations. Pour effectuer une recherche par filtre, tapez 0.");
             int entreeUtilisateur = Convert.ToInt32(Console.ReadLine());
+            MenuFicheProjet(entreeUtilisateur);
+        } //OK
+
+        public static void RechercheParEleve()
+        {
+            Menu.Bandeau();
+            Console.WriteLine("\n--Recherche par étudiant--");
+            Console.WriteLine("\nEntrez le prénom de l'étudiant.e");
+            string prenom = Console.ReadLine();
+            prenom = prenom[0].ToString().ToUpper() + prenom.Substring(1).ToLower(); //Pour protéger de la sensibilité à la casse
+
+            Console.WriteLine("Entrez le nom de l'étudiant.e");
+            string nom = Console.ReadLine();
+            nom = nom[0].ToString().ToUpper() + nom.Substring(1).ToLower();
+
+            Console.WriteLine("\nL'étudiant.e " + prenom + " " + nom + " intervient dans les projets suivants : \n");
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
+            List<Projet> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
+            using (FileStream stream = File.OpenRead("projets.xml"))
+            {
+                dezerializedList = (List<Projet>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
+            }
+
+            int cpt = 0;
 
             foreach (Projet p in dezerializedList)
             {
-                if (entreeUtilisateur == p.Reference)
+                foreach (Eleve e in p.Intervenants.OfType<Eleve>())
                 {
-                    Console.WriteLine(p.NomProjet + " est un projet de type " + p.TypeProjet + "concernant les matières : " + p.Matieres);
-                    Console.WriteLine("Il implique les intervenants suivants : " + p.Intervenants + " qui occupent les rôles suivants : " + p.Roles);
-                    Console.WriteLine("Les livrables attendus sont les suivants : " + p.Livrables);
-                }
-
-            }
-        }
-
-        public static void AffichageParIntervenant()
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
-            List<Projet> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
-            using (FileStream stream = File.OpenRead("projets.xml"))
-            {
-                dezerializedList = (List<Projet>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
-            }
-            foreach (Projet p in dezerializedList)// Pour chaque matière récupérée dans la liste desérialisée
-            {
-                Console.WriteLine("Entrez le nom de l'intervenant");
-                string Nom = Console.ReadLine();
-                Console.WriteLine("Entrez le prenom de l'intervenant");
-                string Prenom = Console.ReadLine();
-
-                foreach (Eleve e in p.Intervenants)
-                {
-                    if (e.Nom == Nom && e.Prenom == Prenom)
+                    if (e.Nom == nom && e.Prenom == prenom)
                     {
                         foreach (Role r in p.Roles)
+                        {
                             if (p.Intervenants.IndexOf(e) == p.Roles.IndexOf(r))
                             {
-                                Console.WriteLine("Cet.te etduiant. a rempli le rôle de " + r.Libelle + " dans le projet " + p.NomProjet + " lors de sa " + e.Annee + "A");
+                                cpt++;
+                                Console.WriteLine(" - " + p.NomProjet + " (" + p.TypeProjet.NomType + ") en tant que " + r.Libelle);
                             }
-                    }
-                }
-
-                foreach (Professeur prof in p.Intervenants)
-                {
-                    if (prof.Nom == Nom && prof.Prenom == Prenom)
-                    {
-                        foreach (Role r in p.Roles)
-                            if (p.Intervenants.IndexOf(prof) == p.Roles.IndexOf(r))
-                            {
-                                Console.WriteLine("Ce professeur a rempli le rôle de " + r.Libelle + "dans le projet" + p.NomProjet);
-                            }
-                    }
-                }
-
-                foreach (Exte ext in p.Intervenants)
-                {
-                    if (ext.Nom == Nom && ext.Prenom == Prenom)
-                    {
-                        foreach (Role r in p.Roles)
-                            if (p.Intervenants.IndexOf(ext) == p.Roles.IndexOf(r))
-                            {
-                                Console.WriteLine("Cet.te intervenant.e a rempli le rôle de " + r.Libelle + "dans le projet" + p.NomProjet);
-                            }
+                        }
                     }
                 }
             }
-        }
 
+            if (cpt == 0) Console.WriteLine("Aucune correspondance n'a été trouvée");
+            Console.ReadKey();
+        } //OK
 
-        public static void AffichageParMatiere()
+        public static void RechercheParPromo()
         {
+            Menu.Bandeau();
+            Console.WriteLine("\n--Recherche par promotion--");
+            Console.WriteLine("\nEntrez l'année corespondant à la promotion");
+            int promo = Int32.Parse(Console.ReadLine());
+
+            Console.WriteLine("\nDes étudiants de la promo " + promo + " ont travaillé sur les projets suivants :\n");
             XmlSerializer serializer = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
             List<Projet> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
             using (FileStream stream = File.OpenRead("projets.xml"))
             {
                 dezerializedList = (List<Projet>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
             }
-            foreach (Projet p in dezerializedList)// Pour chaque matière récupérée dans la liste desérialisée
-            {
-                Console.WriteLine("Entrez le nom de la matière");
-                string mat = Console.ReadLine();
 
-                foreach (Matiere m in p.Matieres)
+            List<Projet> listeproj = new List<Projet>();
+
+            foreach (Projet p in dezerializedList)
+            {
+
+                foreach (Eleve e in p.Intervenants.OfType<Eleve>())
                 {
-                    if (m.NomMatiere == mat)
+                    if (e.Promo == promo)
                     {
-                        Console.WriteLine(p.NomProjet);
+                        if (listeproj.Contains(p) == false)
+                        {
+                            listeproj.Add(p);
+                        }
+                    }
+                }
+            }
+            if (listeproj.Count == 0)
+            {
+                Console.WriteLine("Aucune correspondance trouvée");
+            }
+            else
+            {
+                foreach (Projet p in listeproj)
+                {
+                    Console.WriteLine(" - " + p.NomProjet + " (" + p.TypeProjet.NomType + ")");
+                }
+            }
+            Console.ReadKey();
+        } //OK
+
+        public static void RechercheParAnnee()
+        {
+            Menu.Bandeau();
+            Console.WriteLine("\n--Recherche par année de scolarité--");
+            Console.WriteLine("\nEntrez l'année souhaitée (1, 2 ou 3)");
+            string anneetest = Console.ReadLine();
+            while (anneetest != "1" && anneetest != "2" && anneetest != "3") //Sécurisation
+            {
+                Console.WriteLine("\nEntrez une année existante (1, 2 ou 3)");
+                anneetest = Console.ReadLine();
+            }
+
+            int annee = Int32.Parse(anneetest);
+
+            Console.WriteLine("\nDes étudiants de " + annee + "A ont travaillé sur les projets suivants :\n");
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
+            List<Projet> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
+            using (FileStream stream = File.OpenRead("projets.xml"))
+            {
+                dezerializedList = (List<Projet>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
+            }
+
+            List<Projet> listeproj = new List<Projet>();
+
+            foreach (Projet p in dezerializedList)
+            {
+
+                foreach (Eleve e in p.Intervenants.OfType<Eleve>())
+                {
+                    if (e.Annee == annee)
+                    {
+                        if (listeproj.Contains(p) == false)
+                        {
+                            listeproj.Add(p);
+                        }
+                    }
+                }
+            }
+            if (listeproj.Count == 0)
+            {
+                Console.WriteLine("Aucune correspondance trouvée");
+            }
+            else
+            {
+                foreach (Projet p in listeproj)
+                {
+                    Console.WriteLine(" - " + p.NomProjet + " (" + p.TypeProjet.NomType + ")");
+                }
+            }
+            Console.ReadKey();
+        } //OK
+
+        public static void RechercheParMotCle()
+        {
+            Menu.Bandeau();
+            Console.WriteLine("\n--Recherche par mot-clé--");
+            Console.WriteLine("\nEntrez le terme à rechercher");
+            string motcle = Console.ReadLine();
+
+            Console.WriteLine("\nLe terme " + motcle + " a été recontré dans sur les projets suivants :\n");
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Projet>)); // Initialisation de l'outils de serialisation
+            List<Projet> dezerializedList = null; // Pour que la liste soit accessible en dehors du using filestream...
+            using (FileStream stream = File.OpenRead("projets.xml"))
+            {
+                dezerializedList = (List<Projet>)serializer.Deserialize(stream); // On récupère le contenu du fichier que l'on met dans notre liste
+            }
+
+            List<Projet> listeproj = new List<Projet>();
+
+            foreach (Projet p in dezerializedList)
+            {
+                if (p.TypeProjet.NomType.Contains(motcle) == true)
+                {
+                    if (listeproj.Contains(p) == false)
+                    {
+                        listeproj.Add(p);
+                    }
+                }
+                else if (p.NomProjet.Contains(motcle) == true)
+                {
+                    if (listeproj.Contains(p) == false)
+                    {
+                        listeproj.Add(p);
                     }
                 }
 
+                foreach (Livrable l in p.Livrables)
+                {
+                    if (l.typeLivrable.Contains(motcle) == true)
+                    {
+                        if (listeproj.Contains(p) == false)
+                        {
+                            listeproj.Add(p);
+                        }
+                    }
+                }
+                foreach (Role r in p.Roles)
+                {
+                    if (r.Libelle.Contains(motcle) == true)
+                    {
+                        if (listeproj.Contains(p) == false)
+                        {
+                            listeproj.Add(p);
+                        }
+                    }
+                }
             }
+
+            if (listeproj.Count == 0)
+            {
+                Console.WriteLine("Aucune correspondance trouvée. Essayez avec ou sans majuscule.");
+            }
+            else
+            {
+                foreach (Projet p in listeproj)
+                {
+                    Console.WriteLine( (listeproj.IndexOf(p)+1)+" - " + p.NomProjet + " (" + p.TypeProjet.NomType + ")");
+                }
+            }
+
+            Console.ReadKey();
+        } //OK
+
+        public static void MenuRecherche() 
+        { 
+        
+        
+        
         }
+
+
     }
 }

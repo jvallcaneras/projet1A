@@ -27,8 +27,11 @@ namespace Projet1
         {
             Console.WriteLine("Indiquez le nom du professeur");
             string nom = Console.ReadLine();
+            nom = nom[0].ToString().ToUpper() + nom.Substring(1).ToLower();
+
             Console.WriteLine("Indiquez le prenom du professeur");
             string prenom = Console.ReadLine();
+            prenom = prenom[0].ToString().ToUpper() + prenom.Substring(1).ToLower();
 
             Professeur prof = new Professeur(nom, prenom);
 

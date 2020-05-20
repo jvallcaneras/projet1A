@@ -38,8 +38,12 @@ namespace Projet1
         {
             Console.WriteLine("Indiquez le nom de l'élève");
             string nom = Console.ReadLine();
+            nom = nom[0].ToString().ToUpper() + nom.Substring(1).ToLower();
+            
             Console.WriteLine("Indiquez le prenom de l'élève");
             string prenom = Console.ReadLine();
+            prenom = prenom[0].ToString().ToUpper() + prenom.Substring(1).ToLower();
+
             Console.WriteLine("Indiquez la promotion de l'élève");
             int promo = int.Parse(Console.ReadLine());
             Console.WriteLine("Indiquez l'annee de l'élève (1, 2 ou 3 en fonction de son année)");

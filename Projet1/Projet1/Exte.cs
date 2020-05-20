@@ -26,8 +26,12 @@ namespace Projet1
         {
             Console.WriteLine("Indiquez le nom de l'intervenant exterieur");
             string nom = Console.ReadLine();
+            nom = nom[0].ToString().ToUpper() + nom.Substring(1).ToLower();
+
             Console.WriteLine("Indiquez le prenom de l'intervenant exterieur");
             string prenom = Console.ReadLine();
+            prenom = prenom[0].ToString().ToUpper() + prenom.Substring(1).ToLower();
+
             Console.WriteLine("Indiquez l'entreprise, le lieu de travail ou le poste de l'intervenant");
             string entreprise = (Console.ReadLine());
 
